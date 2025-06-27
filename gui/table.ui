@@ -140,72 +140,6 @@ QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed {
     <property name="spacing">
      <number>0</number>
     </property>
-    <item row="7" column="0" colspan="2">
-     <widget class="QTableWidget" name="table">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <attribute name="horizontalHeaderMinimumSectionSize">
-       <number>110</number>
-      </attribute>
-      <attribute name="horizontalHeaderDefaultSectionSize">
-       <number>200</number>
-      </attribute>
-      <column>
-       <property name="text">
-        <string/>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>SID</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>IP:PORT</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>COUNTRY</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>TYPE</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>FROM</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>TO</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>STATUS</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>CHANGED_IP</string>
-       </property>
-      </column>
-      <column>
-       <property name="text">
-        <string>NOTE</string>
-       </property>
-      </column>
-     </widget>
-    </item>
     <item row="8" column="1" alignment="Qt::AlignmentFlag::AlignRight">
      <widget class="QFrame" name="sizeGrip">
       <property name="minimumSize">
@@ -237,7 +171,7 @@ QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed {
           </size>
          </property>
          <property name="pixmap">
-          <pixmap resource="../resources/resources.qrc">:/icons/icons/Logo.svg</pixmap>
+          <pixmap>:/icons/icons/Logo.svg</pixmap>
          </property>
          <property name="alignment">
           <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -309,7 +243,7 @@ QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed {
              </font>
             </property>
             <property name="icon">
-             <iconset resource="../resources/resources.qrc">
+             <iconset>
               <normaloff>:/icons/icons/minimize.svg</normaloff>:/icons/icons/minimize.svg</iconset>
             </property>
             <property name="iconSize">
@@ -329,7 +263,7 @@ QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed {
              </size>
             </property>
             <property name="icon">
-             <iconset resource="../resources/resources.qrc">
+             <iconset>
               <normaloff>:/icons/icons/maximize.svg</normaloff>
               <normalon>:/icons/icons/restore.svg</normalon>:/icons/icons/maximize.svg</iconset>
             </property>
@@ -353,7 +287,7 @@ QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed {
              </size>
             </property>
             <property name="icon">
-             <iconset resource="../resources/resources.qrc">
+             <iconset>
               <normaloff>:/icons/icons/close.svg</normaloff>:/icons/icons/close.svg</iconset>
             </property>
             <property name="iconSize">
@@ -495,6 +429,66 @@ QComboBox { background-color: rgb(33, 37, 43) }</string>
         </layout>
        </item>
       </layout>
+     </widget>
+    </item>
+    <item row="7" column="0" colspan="2">
+     <widget class="QTableWidget" name="table">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <column>
+       <property name="text">
+        <string/>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>SID</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>IP:PORT</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>COUNTRY</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>TYPE</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>FROM</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>TO</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>STATUS</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>CHANGED_IP</string>
+       </property>
+      </column>
+      <column>
+       <property name="text">
+        <string>NOTE</string>
+       </property>
+      </column>
      </widget>
     </item>
    </layout>

@@ -78,5 +78,5 @@ def change_note(note: str):
         print(f"Sent for {data['sid']} -> {response.status_code}")
         time.sleep(0.5)  # optional: delay to avoid hitting rate limits
 
-get_data_from_ip()
-# change_note("")
+# get_data_from_ip()
+change_note("1107 hue2-chung2")

@@ -28,26 +28,14 @@ class TableWindow(QMainWindow):
         self.ui.closeBtn.clicked.connect(self.close)
         # Restore/Maximize window
         self.ui.changeWindowBtn.clicked.connect(self.window_controller.maximize_restore)
-        
-        header = self.ui.table.horizontalHeader()
-        header.setStretchLastSection(True)
-        # header.setSectionResizeMode(QHeaderView.ResizeMode.Stretch)
-        
-        # Set all columns to stretch by default
-        for i in range(1, self.ui.table.columnCount()):
-            header.setSectionResizeMode(i, QHeaderView.Stretch)
-        
-        # Set the first column (status) to fixed width, others stretch
-        header.setSectionResizeMode(0, QHeaderView.ResizeMode.Fixed)
-        self.ui.table.setColumnWidth(0, 10)  # Adjust 40 to your preferred width
 
         self.deleted_rows = []
         undo_shortcut = QShortcut(QKeySequence("Ctrl+Z"), self)
         undo_shortcut.activated.connect(self.undoDelete)
         
-        self.importData()
-        
         self.show()
+        
+        self.importData()
     
     def mousePressEvent(self, event):
         # Get the current position of the mouse
@@ -56,6 +44,18 @@ class TableWindow(QMainWindow):
     def resizeEvent(self, event):
         # Update Size Grips
         self.window_controller.update_grips_geometry()
+        
+    def adjust_column_width(self):
+        header = self.ui.table.horizontalHeader()
+
+        # Set columns 0-8 to ResizeToContents (fixed, minimum size)
+        for i in range(9):
+            header.setSectionResizeMode(i, QHeaderView.ResizeMode.Interactive)
+            self.ui.table.resizeColumnToContents(i)
+            self.ui.table.setColumnWidth(i, self.ui.table.columnWidth(i) + 10)  # Add extra width
+
+        # Set last column (9) to Stretch (expand with parent)
+        header.setSectionResizeMode(9, QHeaderView.ResizeMode.Stretch)
 
     def addRow(self):
         currentRow = self.ui.table.currentRow()
@@ -104,12 +104,25 @@ class TableWindow(QMainWindow):
             servers: list[dict] = data.get("servers", [])
         self.ui.table.setRowCount(len(servers))  # Set number of rows
         for row, server in enumerate(servers):
-            self.ui.table.setItem(row, 1, QTableWidgetItem(str(server.get("server_id", ""))))
-            self.ui.table.setItem(row, 2, QTableWidgetItem(server.get("ip_port", "")))
-            self.ui.table.setItem(row, 3, QTableWidgetItem(server.get("country", "")))
-            self.ui.table.setItem(row, 4, QTableWidgetItem(server.get("plan_number", "")))
-            self.ui.table.setItem(row, 5, QTableWidgetItem(server.get("ngay_mua", "")))
-            self.ui.table.setItem(row, 6, QTableWidgetItem(server.get("het_han", "")))
-            self.ui.table.setItem(row, 7, QTableWidgetItem(server.get("trang_thai", "")))
-            self.ui.table.setItem(row, 8, QTableWidgetItem(str(server.get("changed_ip", ""))))
-            self.ui.table.setItem(row, 9, QTableWidgetItem(server.get("note", "")))
+            items = [
+                QTableWidgetItem(str(server.get("server_id", ""))),
+                QTableWidgetItem(server.get("ip_port", "")),
+                QTableWidgetItem(server.get("country", "")),
+                QTableWidgetItem(server.get("plan_number", "")),
+                QTableWidgetItem(server.get("ngay_mua", "")),
+                QTableWidgetItem(server.get("het_han", "")),
+                QTableWidgetItem(server.get("trang_thai", "")),
+                QTableWidgetItem(str(server.get("changed_ip", ""))),
+                QTableWidgetItem(server.get("note", "")),
+            ]
+            # Insert blank or icon for first column if needed
+            items.insert(0, QTableWidgetItem("✔️"))  # Adjust if you use icons
+
+            for col, item in enumerate(items):
+                item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+                if col == 0: # Change font of icon column
+                    font = item.font()
+                    font.setPointSize(15)
+                    item.setFont(font)
+                self.ui.table.setItem(row, col, item)
+        self.adjust_column_width()

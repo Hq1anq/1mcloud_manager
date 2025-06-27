@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'tablepgVqhO.ui'
+## Form generated from reading UI file 'tablekxrHGD.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -144,40 +144,6 @@ class Ui_MainWindow(object):
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.table = QTableWidget(self.centralwidget)
-        if (self.table.columnCount() < 10):
-            self.table.setColumnCount(10)
-        __qtablewidgetitem = QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(0, __qtablewidgetitem)
-        __qtablewidgetitem1 = QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(1, __qtablewidgetitem1)
-        __qtablewidgetitem2 = QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(2, __qtablewidgetitem2)
-        __qtablewidgetitem3 = QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(3, __qtablewidgetitem3)
-        __qtablewidgetitem4 = QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(4, __qtablewidgetitem4)
-        __qtablewidgetitem5 = QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(5, __qtablewidgetitem5)
-        __qtablewidgetitem6 = QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(6, __qtablewidgetitem6)
-        __qtablewidgetitem7 = QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(7, __qtablewidgetitem7)
-        __qtablewidgetitem8 = QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(8, __qtablewidgetitem8)
-        __qtablewidgetitem9 = QTableWidgetItem()
-        self.table.setHorizontalHeaderItem(9, __qtablewidgetitem9)
-        self.table.setObjectName(u"table")
-        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy.setHorizontalStretch(0)
-        sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.table.sizePolicy().hasHeightForWidth())
-        self.table.setSizePolicy(sizePolicy)
-        self.table.horizontalHeader().setMinimumSectionSize(110)
-        self.table.horizontalHeader().setDefaultSectionSize(200)
-
-        self.gridLayout.addWidget(self.table, 7, 0, 1, 2)
-
         self.sizeGrip = QFrame(self.centralwidget)
         self.sizeGrip.setObjectName(u"sizeGrip")
         self.sizeGrip.setMinimumSize(QSize(15, 15))
@@ -201,11 +167,11 @@ class Ui_MainWindow(object):
 
         self.title = QLabel(self.contentTop)
         self.title.setObjectName(u"title")
-        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
-        sizePolicy1.setHorizontalStretch(0)
-        sizePolicy1.setVerticalStretch(0)
-        sizePolicy1.setHeightForWidth(self.title.sizePolicy().hasHeightForWidth())
-        self.title.setSizePolicy(sizePolicy1)
+        sizePolicy = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Preferred)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(self.title.sizePolicy().hasHeightForWidth())
+        self.title.setSizePolicy(sizePolicy)
         font = QFont()
         font.setFamilies([u"Segoe UI"])
         font.setBold(True)
@@ -217,11 +183,11 @@ class Ui_MainWindow(object):
 
         self.navigationBar = QFrame(self.contentTop)
         self.navigationBar.setObjectName(u"navigationBar")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.navigationBar.sizePolicy().hasHeightForWidth())
-        self.navigationBar.setSizePolicy(sizePolicy2)
+        sizePolicy1 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Preferred)
+        sizePolicy1.setHorizontalStretch(0)
+        sizePolicy1.setVerticalStretch(0)
+        sizePolicy1.setHeightForWidth(self.navigationBar.sizePolicy().hasHeightForWidth())
+        self.navigationBar.setSizePolicy(sizePolicy1)
         self.hboxLayout = QHBoxLayout(self.navigationBar)
         self.hboxLayout.setSpacing(0)
         self.hboxLayout.setObjectName(u"hboxLayout")
@@ -278,11 +244,11 @@ class Ui_MainWindow(object):
 
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
-        self.frame.setSizePolicy(sizePolicy3)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
+        self.frame.setSizePolicy(sizePolicy2)
         self.frame.setStyleSheet(u"QPushButton {\n"
 "	font: 20px;\n"
 "	font-weight: bold;\n"
@@ -332,11 +298,11 @@ class Ui_MainWindow(object):
 
         self.getData = QPushButton(self.frame)
         self.getData.setObjectName(u"getData")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.getData.sizePolicy().hasHeightForWidth())
-        self.getData.setSizePolicy(sizePolicy4)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.getData.sizePolicy().hasHeightForWidth())
+        self.getData.setSizePolicy(sizePolicy3)
 
         self.gridLayout_2.addWidget(self.getData, 0, 0, 2, 1)
 
@@ -364,6 +330,38 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.frame, 4, 0, 1, 2)
 
+        self.table = QTableWidget(self.centralwidget)
+        if (self.table.columnCount() < 10):
+            self.table.setColumnCount(10)
+        __qtablewidgetitem = QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(0, __qtablewidgetitem)
+        __qtablewidgetitem1 = QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(1, __qtablewidgetitem1)
+        __qtablewidgetitem2 = QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(2, __qtablewidgetitem2)
+        __qtablewidgetitem3 = QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(3, __qtablewidgetitem3)
+        __qtablewidgetitem4 = QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(4, __qtablewidgetitem4)
+        __qtablewidgetitem5 = QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(5, __qtablewidgetitem5)
+        __qtablewidgetitem6 = QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(6, __qtablewidgetitem6)
+        __qtablewidgetitem7 = QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(7, __qtablewidgetitem7)
+        __qtablewidgetitem8 = QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(8, __qtablewidgetitem8)
+        __qtablewidgetitem9 = QTableWidgetItem()
+        self.table.setHorizontalHeaderItem(9, __qtablewidgetitem9)
+        self.table.setObjectName(u"table")
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.table.sizePolicy().hasHeightForWidth())
+        self.table.setSizePolicy(sizePolicy4)
+
+        self.gridLayout.addWidget(self.table, 7, 0, 1, 2)
+
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -373,6 +371,13 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
+        self.title.setText(QCoreApplication.translate("MainWindow", u"1MCLOUD", None))
+        self.statusTable.setText("")
+        self.plainTextEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Danh s\u00e1ch ip, m\u1ed7i ip m\u1ed9t d\u00f2ng", None))
+        self.changeNotes.setText(QCoreApplication.translate("MainWindow", u"CHANGE NOTES", None))
+        self.getData.setText(QCoreApplication.translate("MainWindow", u"GET DATA", None))
+        self.changeIP.setText(QCoreApplication.translate("MainWindow", u"CHANGE IP", None))
+        self.reInstall.setText(QCoreApplication.translate("MainWindow", u"REINSTALL", None))
         ___qtablewidgetitem = self.table.horizontalHeaderItem(1)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"SID", None));
         ___qtablewidgetitem1 = self.table.horizontalHeaderItem(2)
@@ -391,12 +396,5 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"CHANGED_IP", None));
         ___qtablewidgetitem8 = self.table.horizontalHeaderItem(9)
         ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"NOTE", None));
-        self.title.setText(QCoreApplication.translate("MainWindow", u"1MCLOUD", None))
-        self.statusTable.setText("")
-        self.plainTextEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Danh s\u00e1ch ip, m\u1ed7i ip m\u1ed9t d\u00f2ng", None))
-        self.changeNotes.setText(QCoreApplication.translate("MainWindow", u"CHANGE NOTES", None))
-        self.getData.setText(QCoreApplication.translate("MainWindow", u"GET DATA", None))
-        self.changeIP.setText(QCoreApplication.translate("MainWindow", u"CHANGE IP", None))
-        self.reInstall.setText(QCoreApplication.translate("MainWindow", u"REINSTALL", None))
     # retranslateUi
 
