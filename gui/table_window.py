@@ -3,6 +3,7 @@ from PySide6.QtCore import Qt
 from PySide6.QtGui import QShortcut, QKeySequence, QGuiApplication
 
 import json
+import server_api
 
 from gui.ui_table import Ui_MainWindow
 from gui.window_control import WindowController
@@ -12,6 +13,8 @@ class TableWindow(QMainWindow):
         QMainWindow.__init__(self)
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
+        
+        self.data = None
         
         self.window_controller = WindowController(self)
         
@@ -30,12 +33,19 @@ class TableWindow(QMainWindow):
         self.ui.changeWindowBtn.clicked.connect(self.window_controller.maximize_restore)
 
         self.deleted_rows = []
+        
+        self.ui.getData.connect(self.run_get_data)
         undo_shortcut = QShortcut(QKeySequence("Ctrl+Z"), self)
         undo_shortcut.activated.connect(self.undoDelete)
         
         self.show()
         
-        self.importData()
+        self.load_data()
+        self.load_data2table(self.data)
+        
+    def run_get_data(self):
+        data = server_api.get_data_from_ip(self.ui.txtIP.toPlainText())
+        
     
     def mousePressEvent(self, event):
         # Get the current position of the mouse
@@ -98,12 +108,16 @@ class TableWindow(QMainWindow):
         copied_text = "\n".join(item.text() for item in selected_items)
         QGuiApplication.clipboard().setText(copied_text)
     
-    def importData(self):
-        with open("servers_filtered.json", "r", encoding="utf-8") as f:
-            data = json.load(f)
-            servers: list[dict] = data.get("servers", [])
-        self.ui.table.setRowCount(len(servers))  # Set number of rows
-        for row, server in enumerate(servers):
+    def load_data(self, file_path: str = "servers_filtered.json"):
+        try:
+            with open(file_path, "r", encoding="utf-8") as f:
+                self.data = json.load(f)
+                return self.data
+        except:
+            return None
+    def load_data2table(self, data: list[dict]):
+        self.ui.table.setRowCount(len(data))  # Set number of rows
+        for row, server in enumerate(data):
             items = [
                 QTableWidgetItem(str(server.get("server_id", ""))),
                 QTableWidgetItem(server.get("ip_port", "")),

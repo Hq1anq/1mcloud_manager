@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'tablekxrHGD.ui'
+## Form generated from reading UI file 'tablendEPmc.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -279,10 +279,10 @@ class Ui_MainWindow(object):
         self.horizontalLayout_2.setSpacing(20)
         self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.horizontalLayout_2.setContentsMargins(20, -1, 20, -1)
-        self.plainTextEdit = QPlainTextEdit(self.frame)
-        self.plainTextEdit.setObjectName(u"plainTextEdit")
+        self.txtIP = QPlainTextEdit(self.frame)
+        self.txtIP.setObjectName(u"txtIP")
 
-        self.horizontalLayout_2.addWidget(self.plainTextEdit)
+        self.horizontalLayout_2.addWidget(self.txtIP)
 
         self.gridLayout_3 = QGridLayout()
         self.gridLayout_3.setSpacing(20)
@@ -373,7 +373,7 @@ class Ui_MainWindow(object):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.title.setText(QCoreApplication.translate("MainWindow", u"1MCLOUD", None))
         self.statusTable.setText("")
-        self.plainTextEdit.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Danh s\u00e1ch ip, m\u1ed7i ip m\u1ed9t d\u00f2ng", None))
+        self.txtIP.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Danh s\u00e1ch ip, m\u1ed7i ip m\u1ed9t d\u00f2ng", None))
         self.changeNotes.setText(QCoreApplication.translate("MainWindow", u"CHANGE NOTES", None))
         self.getData.setText(QCoreApplication.translate("MainWindow", u"GET DATA", None))
         self.changeIP.setText(QCoreApplication.translate("MainWindow", u"CHANGE IP", None))

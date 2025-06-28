@@ -368,7 +368,7 @@ QComboBox { background-color: rgb(33, 37, 43) }</string>
         <number>20</number>
        </property>
        <item>
-        <widget class="QPlainTextEdit" name="plainTextEdit">
+        <widget class="QPlainTextEdit" name="txtIP">
          <property name="placeholderText">
           <string>Danh sách ip, mỗi ip một dòng</string>
          </property>

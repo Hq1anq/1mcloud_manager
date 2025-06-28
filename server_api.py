@@ -35,7 +35,7 @@ def get_data_from_ip(ips: str, save: bool = True) -> dict:
         raw_data: dict = response.json()
         servers: list[dict] = raw_data.get("servers", [])
         
-        filtered_servers = []
+        data = []
         for server in servers:
             filtered = {
                 "server_id": server.get("server_id"),
@@ -48,16 +48,14 @@ def get_data_from_ip(ips: str, save: bool = True) -> dict:
                 "trang_thai": server.get("trang_thai"),
                 "note": server.get("note")
             }
-            filtered_servers.append(filtered)
-
-        result = {"servers": filtered_servers}
+            data.append(filtered)
 
         if save:
             # 💾 Save to JSON file
-            with open("servers_filtered.json", "w", encoding="utf-8") as f:
-                json.dump(result, f, ensure_ascii=False, indent=4)
-            print("✅ Data saved to servers_filtered.json")
-        return result
+            with open("data.json", "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+            print("✅ Data saved to data.json")
+        return data
     else:
         print("❌ Request failed:", response.status_code)
         return None
@@ -76,5 +74,6 @@ def change_note(sids: str, note: str):
         print(f"Sent for {data['sid']} -> {response.status_code}")
         time.sleep(0.5)  # optional: delay to avoid hitting rate limits
 
-# get_data_from_ip()
-change_note("1207 hue2 tung1")
+ips = pyperclip.paste()
+get_data_from_ip(ips)
+# change_note("1207 hue2 tung1")
