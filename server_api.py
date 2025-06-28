@@ -13,13 +13,11 @@ headers = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
     }
 
-def get_data_from_ip():
+def get_data_from_ip(ips: str, save: bool = True) -> dict:
     url = "https://api.smartserver.vn/api/server/list"
-
-    ips_text = pyperclip.paste()
     
     # Convert to comma-separated string
-    ip_list = [ip.strip() for ip in ips_text.strip().splitlines() if ip.strip()]
+    ip_list = [ip.strip() for ip in ips.strip().splitlines() if ip.strip()]
     ip_string = ",".join(ip_list)
     params = {
         "page": 1,
@@ -54,20 +52,20 @@ def get_data_from_ip():
 
         result = {"servers": filtered_servers}
 
-        # 💾 Save to JSON file
-        with open("servers_filtered.json", "w", encoding="utf-8") as f:
-            json.dump(result, f, ensure_ascii=False, indent=4)
-
-        print("✅ Data saved to servers_filtered.json")
+        if save:
+            # 💾 Save to JSON file
+            with open("servers_filtered.json", "w", encoding="utf-8") as f:
+                json.dump(result, f, ensure_ascii=False, indent=4)
+            print("✅ Data saved to servers_filtered.json")
+        return result
     else:
         print("❌ Request failed:", response.status_code)
+        return None
 
-def change_note(note: str):
+def change_note(sids: str, note: str):
     url = "https://api.smartserver.vn/api/server/info/note"
     
-    sid_text = pyperclip.paste()
-    
-    sid_list = [sid.strip() for sid in sid_text.strip().splitlines() if sid.strip()]
+    sid_list = [sid.strip() for sid in sids.strip().splitlines() if sid.strip()]
     
     data_list = [
         {"sid": sid, "note": note} for sid in sid_list
@@ -79,4 +77,4 @@ def change_note(note: str):
         time.sleep(0.5)  # optional: delay to avoid hitting rate limits
 
 # get_data_from_ip()
-change_note("1107 hue2-chung2")
+change_note("1207 hue2 tung1")
