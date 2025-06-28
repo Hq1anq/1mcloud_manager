@@ -13,7 +13,7 @@ headers = {
         "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
     }
 
-def get_data_from_ip(ips: str, save: bool = True) -> dict:
+def get_data_from_ip(ips: str, save: bool = True) -> list:
     url = "https://api.smartserver.vn/api/server/list"
     
     # Convert to comma-separated string
@@ -74,6 +74,7 @@ def change_note(sids: str, note: str):
         print(f"Sent for {data['sid']} -> {response.status_code}")
         time.sleep(0.5)  # optional: delay to avoid hitting rate limits
 
-ips = pyperclip.paste()
-get_data_from_ip(ips)
-# change_note("1207 hue2 tung1")
+if __name__ == "__main__":
+    ips = pyperclip.paste()
+    get_data_from_ip(ips)
+    # change_note("1207 hue2 tung1")

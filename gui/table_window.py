@@ -34,7 +34,7 @@ class TableWindow(QMainWindow):
 
         self.deleted_rows = []
         
-        self.ui.getData.connect(self.run_get_data)
+        self.ui.getData.clicked.connect(self.run_get_data)
         undo_shortcut = QShortcut(QKeySequence("Ctrl+Z"), self)
         undo_shortcut.activated.connect(self.undoDelete)
         
@@ -45,7 +45,7 @@ class TableWindow(QMainWindow):
         
     def run_get_data(self):
         data = server_api.get_data_from_ip(self.ui.txtIP.toPlainText())
-        
+        self.load_data2table(data)
     
     def mousePressEvent(self, event):
         # Get the current position of the mouse
@@ -108,7 +108,7 @@ class TableWindow(QMainWindow):
         copied_text = "\n".join(item.text() for item in selected_items)
         QGuiApplication.clipboard().setText(copied_text)
     
-    def load_data(self, file_path: str = "servers_filtered.json"):
+    def load_data(self, file_path: str = "data.json"):
         try:
             with open(file_path, "r", encoding="utf-8") as f:
                 self.data = json.load(f)
