@@ -96,9 +96,6 @@ class TableWindow(QMainWindow):
     def table_item(self, text: str):
         item = QTableWidgetItem(text)
         item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-        font = item.font()
-        font.setPointSize(15)
-        item.setFont(font)
         return item
     
     def run_change_notes(self):
@@ -175,9 +172,5 @@ class TableWindow(QMainWindow):
 
             for col, item in enumerate(items):
                 item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
-                if col == 0: # Change font of icon column
-                    font = item.font()
-                    font.setPointSize(10)
-                    item.setFont(font)
                 self.ui.table.setItem(row, col, item)
         self.adjust_column_width()
