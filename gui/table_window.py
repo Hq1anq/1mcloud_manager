@@ -23,7 +23,6 @@ class TableWindow(QMainWindow):
 
         self.sizegrip = QSizeGrip(self.ui.sizeGrip)
         self.sizegrip.setStyleSheet("width: 20px; height: 20px; margin 0px; padding: 0px;")
-        # CUSTOM GRIPS
 
         # Minimize window
         self.ui.minimizeBtn.clicked.connect(self.showMinimized)
@@ -35,6 +34,7 @@ class TableWindow(QMainWindow):
         self.deleted_rows = []
         
         self.ui.getData.clicked.connect(self.run_get_data)
+        self.ui.changeNotes.clicked.connect(self.run_change_notes)
         undo_shortcut = QShortcut(QKeySequence("Ctrl+Z"), self)
         undo_shortcut.activated.connect(self.undoDelete)
         
@@ -92,6 +92,47 @@ class TableWindow(QMainWindow):
                 item = QTableWidgetItem(data)
                 self.ui.table.setItem(row_index, col, item)
             self.ui.table.setCurrentCell(row_index, 0)
+    
+    def table_item(self, text: str):
+        item = QTableWidgetItem(text)
+        item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+        font = item.font()
+        font.setPointSize(15)
+        item.setFont(font)
+        return item
+    
+    def run_change_notes(self):
+        # Get all selected rows (unique)
+        selected_rows = set(item.row() for item in self.ui.table.selectedItems())
+        note = self.ui.txtNote.text()
+        if note.strip():
+            if self.ui.replaceCheckbox.isChecked():
+                for row in selected_rows:
+                    item = self.ui.table.item(row, 1)  # Column 2 (index 1)
+                    status_code = 0
+                    if item:
+                        # print(item.text(), f"'{note.strip()}'")
+                        status_code = server_api.change_note(item.text(), note.strip())
+                    if status_code == 200:
+                        self.ui.table.setItem(row, 0, self.table_item("✔️"))
+                        self.ui.table.setItem(row, 9, self.table_item(note.strip()))
+                    else:
+                        self.ui.table.setItem(row, 0, self.table_item("❌"))
+            else:
+                # Remove the first word and space from note
+                for row in selected_rows:
+                    parts = self.ui.table.item(row, 9).text().strip().split(maxsplit=1) # " 1 2 3" -> ["1", "2 3"]
+                    suffix = parts[1] if len(parts) > 1 else ""
+                    item = self.ui.table.item(row, 1)  # Column 2 (index 1)
+                    status_code = 0
+                    if item:
+                        # print(item.text(), note + suffix)
+                        status_code = server_api.change_note(item.text(), note+suffix)
+                    if status_code == 200:
+                        self.ui.table.setItem(row, 0, self.table_item("✔️"))
+                        self.ui.table.setItem(row, 9, self.table_item(note+suffix))
+                    else:
+                        self.ui.table.setItem(row, 0, self.table_item("❌"))
             
     def keyPressEvent(self, event):
         if event.matches(QKeySequence.Copy):
@@ -130,13 +171,13 @@ class TableWindow(QMainWindow):
                 QTableWidgetItem(server.get("note", "")),
             ]
             # Insert blank or icon for first column if needed
-            items.insert(0, QTableWidgetItem("✔️"))  # Adjust if you use icons
+            items.insert(0, QTableWidgetItem(""))  # Adjust if you use icons
 
             for col, item in enumerate(items):
                 item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
                 if col == 0: # Change font of icon column
                     font = item.font()
-                    font.setPointSize(15)
+                    font.setPointSize(10)
                     item.setFont(font)
                 self.ui.table.setItem(row, col, item)
         self.adjust_column_width()

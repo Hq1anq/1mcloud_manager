@@ -59,8 +59,15 @@ def get_data_from_ip(ips: str, save: bool = True) -> list:
     else:
         print("❌ Request failed:", response.status_code)
         return None
+    
+def change_note(sid: str, note: str) -> int:
+    url = "https://api.smartserver.vn/api/server/info/note"
+    
+    response = requests.put(url, headers=headers, json={"sid": sid, "note": note})
+    print(f"{sid} '{note}' -> {response.status_code}")
+    return response.status_code
 
-def change_note(sids: str, note: str):
+def change_notes(sids: str, note: str):
     url = "https://api.smartserver.vn/api/server/info/note"
     
     sid_list = [sid.strip() for sid in sids.strip().splitlines() if sid.strip()]
@@ -77,4 +84,5 @@ def change_note(sids: str, note: str):
 if __name__ == "__main__":
     ips = pyperclip.paste()
     get_data_from_ip(ips)
-    # change_note("1207 hue2 tung1")
+    # change_notes(ips, "2906 tung1-chung2")
+    # change_note("563352", "1307 huy2 chung2")

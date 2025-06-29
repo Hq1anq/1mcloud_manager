@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'tablendEPmc.ui'
+## Form generated from reading UI file 'tablejIGfMV.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -15,10 +15,10 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
     QFont, QFontDatabase, QGradient, QIcon,
     QImage, QKeySequence, QLinearGradient, QPainter,
     QPalette, QPixmap, QRadialGradient, QTransform)
-from PySide6.QtWidgets import (QApplication, QFrame, QGridLayout, QHBoxLayout,
-    QHeaderView, QLabel, QLineEdit, QMainWindow,
-    QPlainTextEdit, QPushButton, QSizePolicy, QTableWidget,
-    QTableWidgetItem, QWidget)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QGridLayout,
+    QHBoxLayout, QHeaderView, QLabel, QLineEdit,
+    QMainWindow, QPlainTextEdit, QPushButton, QSizePolicy,
+    QTableWidget, QTableWidgetItem, QWidget)
 
 import resources.resources_rc
 
@@ -296,6 +296,16 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.changeNotes, 0, 1, 1, 1)
 
+        self.txtNote = QLineEdit(self.frame)
+        self.txtNote.setObjectName(u"txtNote")
+
+        self.gridLayout_2.addWidget(self.txtNote, 1, 1, 1, 1)
+
+        self.replaceCheckbox = QCheckBox(self.frame)
+        self.replaceCheckbox.setObjectName(u"replaceCheckbox")
+
+        self.gridLayout_2.addWidget(self.replaceCheckbox, 2, 1, 1, 1)
+
         self.getData = QPushButton(self.frame)
         self.getData.setObjectName(u"getData")
         sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
@@ -304,12 +314,7 @@ class Ui_MainWindow(object):
         sizePolicy3.setHeightForWidth(self.getData.sizePolicy().hasHeightForWidth())
         self.getData.setSizePolicy(sizePolicy3)
 
-        self.gridLayout_2.addWidget(self.getData, 0, 0, 2, 1)
-
-        self.lineEdit = QLineEdit(self.frame)
-        self.lineEdit.setObjectName(u"lineEdit")
-
-        self.gridLayout_2.addWidget(self.lineEdit, 1, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.getData, 0, 0, 3, 1)
 
 
         self.gridLayout_3.addLayout(self.gridLayout_2, 0, 0, 1, 2)
@@ -375,6 +380,7 @@ class Ui_MainWindow(object):
         self.statusTable.setText("")
         self.txtIP.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Danh s\u00e1ch ip, m\u1ed7i ip m\u1ed9t d\u00f2ng", None))
         self.changeNotes.setText(QCoreApplication.translate("MainWindow", u"CHANGE NOTES", None))
+        self.replaceCheckbox.setText(QCoreApplication.translate("MainWindow", u"Replace?", None))
         self.getData.setText(QCoreApplication.translate("MainWindow", u"GET DATA", None))
         self.changeIP.setText(QCoreApplication.translate("MainWindow", u"CHANGE IP", None))
         self.reInstall.setText(QCoreApplication.translate("MainWindow", u"REINSTALL", None))
