@@ -1,9 +1,10 @@
 from PySide6.QtWidgets import QMainWindow, QSizeGrip, QTableWidgetItem, QHeaderView
-from PySide6.QtCore import Qt
+from PySide6.QtCore import Qt, QThreadPool
 from PySide6.QtGui import QShortcut, QKeySequence, QGuiApplication
 
 import json
 import server_api
+from workers.change_notes import ChangeNotes
 
 from gui.ui_table import Ui_MainWindow
 from gui.window_control import WindowController
@@ -99,37 +100,24 @@ class TableWindow(QMainWindow):
         return item
     
     def run_change_notes(self):
-        # Get all selected rows (unique)
         selected_rows = set(item.row() for item in self.ui.table.selectedItems())
         note = self.ui.txtNote.text()
-        if note.strip():
-            if self.ui.replaceCheckbox.isChecked():
-                for row in selected_rows:
-                    item = self.ui.table.item(row, 1)  # Column 2 (index 1)
-                    status_code = 0
-                    if item:
-                        # print(item.text(), f"'{note.strip()}'")
-                        status_code = server_api.change_note(item.text(), note.strip())
-                    if status_code == 200:
-                        self.ui.table.setItem(row, 0, self.table_item("✔️"))
-                        self.ui.table.setItem(row, 9, self.table_item(note.strip()))
-                    else:
-                        self.ui.table.setItem(row, 0, self.table_item("❌"))
-            else:
-                # Remove the first word and space from note
-                for row in selected_rows:
-                    parts = self.ui.table.item(row, 9).text().strip().split(maxsplit=1) # " 1 2 3" -> ["1", "2 3"]
-                    suffix = parts[1] if len(parts) > 1 else ""
-                    item = self.ui.table.item(row, 1)  # Column 2 (index 1)
-                    status_code = 0
-                    if item:
-                        # print(item.text(), note + suffix)
-                        status_code = server_api.change_note(item.text(), note+suffix)
-                    if status_code == 200:
-                        self.ui.table.setItem(row, 0, self.table_item("✔️"))
-                        self.ui.table.setItem(row, 9, self.table_item(note+suffix))
-                    else:
-                        self.ui.table.setItem(row, 0, self.table_item("❌"))
+        if not note.strip():
+            return
+
+        worker = ChangeNotes(
+            list(selected_rows), note, self.ui.replaceCheckbox.isChecked(), self.ui.table
+        )
+        worker.signals.change_table.connect(self.handle_note_result)
+        
+        QThreadPool.globalInstance().start(worker)
+        
+    def handle_note_result(self, row, success, note):
+        if success:
+            self.ui.table.setItem(row, 0, self.table_item("✔️"))
+            self.ui.table.setItem(row, 9, self.table_item(note))
+        else:
+            self.ui.table.setItem(row, 0, self.table_item("❌"))
             
     def keyPressEvent(self, event):
         if event.matches(QKeySequence.Copy):
