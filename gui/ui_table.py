@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'tableOMMIAV.ui'
+## Form generated from reading UI file 'tableJNurBQ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -45,7 +45,7 @@ class Ui_MainWindow(object):
 "QWidget {\n"
 "	background-color: rgb(40, 44, 52);\n"
 "	color: rgb(221, 221, 221);\n"
-"	font: 10px \"Segoe UI\" }\n"
+"	font: 15px \"Segoe UI\" }\n"
 "QCheckBox::indicator {\n"
 "    border: 3px solid rgb(52, 59, 72);\n"
 "	width: 15px;\n"
@@ -62,8 +62,7 @@ class Ui_MainWindow(object):
 "QTableWidget {	\n"
 "	padding: 5px;\n"
 "	gridline-color: rgb(44, 49, 58);\n"
-"	border-bottom: 1px solid rgb(44, 49, 60);\n"
-"	font-size: 10px }\n"
+"	border-bottom: 1px solid rgb(44, 49, 60); }\n"
 "QTableWidget::item{ border-color: rgb(44, 49, 60) }\n"
 "QTableWidget::item:selected{ background-color: rgb(189, 147, 249) }\n"
 "QHeaderView { qproperty-defaultAlignment: AlignCenter }\n"
@@ -83,8 +82,8 @@ class Ui_MainWindow(object):
 "	border-radius: 4px }\n"
 "QScrollBar::handle:horizontal:hover, QScrollBar::handle:vertical:hover {\n"
 "	background: rgb(208, 181, 249) }\n"
-"QScrollBar::handle:horizontal:pressed, QScroll"
-                        "Bar::handle:vertical:pressed {\n"
+"QScrollBar::handle:horizontal:pressed, QScrollBar::handle:vertical:"
+                        "pressed {\n"
 "	background: rgb(161, 103, 249) }\n"
 "QScrollBar::add-line:horizontal {\n"
 "	border: none;\n"
@@ -113,8 +112,8 @@ class Ui_MainWindow(object):
 "    width: 8px;\n"
 "    margin: 21px 0 21px 0;\n"
 "	border-radius: 0px }\n"
-""
-                        "QScrollBar::handle:vertical {	\n"
+"QScrollBar::handle:"
+                        "vertical {	\n"
 "	background: rgb(189, 147, 249);\n"
 "	min-height: 25px;\n"
 "	border-radius: 4px }\n"
@@ -275,26 +274,33 @@ class Ui_MainWindow(object):
 "QComboBox { background-color: rgb(33, 37, 43) }")
         self.frame.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.frame)
-        self.horizontalLayout_2.setSpacing(20)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
-        self.horizontalLayout_2.setContentsMargins(20, -1, 20, -1)
+        self.gridLayout_3 = QGridLayout(self.frame)
+        self.gridLayout_3.setObjectName(u"gridLayout_3")
+        self.gridLayout_3.setHorizontalSpacing(20)
+        self.gridLayout_3.setContentsMargins(20, -1, 20, -1)
         self.txtIP = QPlainTextEdit(self.frame)
         self.txtIP.setObjectName(u"txtIP")
 
-        self.horizontalLayout_2.addWidget(self.txtIP)
+        self.gridLayout_3.addWidget(self.txtIP, 0, 0, 2, 1)
 
-        self.gridLayout_3 = QGridLayout()
-        self.gridLayout_3.setSpacing(20)
-        self.gridLayout_3.setObjectName(u"gridLayout_3")
         self.gridLayout_2 = QGridLayout()
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.gridLayout_2.setHorizontalSpacing(20)
-        self.gridLayout_2.setVerticalSpacing(5)
+        self.gridLayout_2.setVerticalSpacing(10)
+        self.getData = QPushButton(self.frame)
+        self.getData.setObjectName(u"getData")
+
+        self.gridLayout_2.addWidget(self.getData, 0, 0, 1, 1)
+
         self.changeNotes = QPushButton(self.frame)
         self.changeNotes.setObjectName(u"changeNotes")
 
-        self.gridLayout_2.addWidget(self.changeNotes, 0, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.changeNotes, 0, 1, 1, 2)
+
+        self.txtAmount = QLineEdit(self.frame)
+        self.txtAmount.setObjectName(u"txtAmount")
+
+        self.gridLayout_2.addWidget(self.txtAmount, 1, 0, 1, 1)
 
         self.txtNote = QLineEdit(self.frame)
         self.txtNote.setObjectName(u"txtNote")
@@ -304,33 +310,20 @@ class Ui_MainWindow(object):
         self.replaceCheckbox = QCheckBox(self.frame)
         self.replaceCheckbox.setObjectName(u"replaceCheckbox")
 
-        self.gridLayout_2.addWidget(self.replaceCheckbox, 2, 1, 1, 1)
-
-        self.getData = QPushButton(self.frame)
-        self.getData.setObjectName(u"getData")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Minimum, QSizePolicy.Policy.Expanding)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.getData.sizePolicy().hasHeightForWidth())
-        self.getData.setSizePolicy(sizePolicy3)
-
-        self.gridLayout_2.addWidget(self.getData, 0, 0, 3, 1)
+        self.gridLayout_2.addWidget(self.replaceCheckbox, 1, 2, 1, 1)
 
 
-        self.gridLayout_3.addLayout(self.gridLayout_2, 0, 0, 1, 2)
+        self.gridLayout_3.addLayout(self.gridLayout_2, 0, 1, 1, 2)
 
         self.changeIP = QPushButton(self.frame)
         self.changeIP.setObjectName(u"changeIP")
 
-        self.gridLayout_3.addWidget(self.changeIP, 1, 0, 1, 1)
+        self.gridLayout_3.addWidget(self.changeIP, 1, 1, 1, 1)
 
         self.reInstall = QPushButton(self.frame)
         self.reInstall.setObjectName(u"reInstall")
 
-        self.gridLayout_3.addWidget(self.reInstall, 1, 1, 1, 1)
-
-
-        self.horizontalLayout_2.addLayout(self.gridLayout_3)
+        self.gridLayout_3.addWidget(self.reInstall, 1, 2, 1, 1)
 
 
         self.gridLayout.addWidget(self.frame, 4, 0, 1, 2)
@@ -359,12 +352,11 @@ class Ui_MainWindow(object):
         __qtablewidgetitem9 = QTableWidgetItem()
         self.table.setHorizontalHeaderItem(9, __qtablewidgetitem9)
         self.table.setObjectName(u"table")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.table.sizePolicy().hasHeightForWidth())
-        self.table.setSizePolicy(sizePolicy4)
-        self.table.setStyleSheet(u"font: 15px")
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.table.sizePolicy().hasHeightForWidth())
+        self.table.setSizePolicy(sizePolicy3)
 
         self.gridLayout.addWidget(self.table, 7, 0, 1, 2)
 
@@ -380,9 +372,10 @@ class Ui_MainWindow(object):
         self.title.setText(QCoreApplication.translate("MainWindow", u"1MCLOUD", None))
         self.statusTable.setText("")
         self.txtIP.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Danh s\u00e1ch ip, m\u1ed7i ip m\u1ed9t d\u00f2ng", None))
-        self.changeNotes.setText(QCoreApplication.translate("MainWindow", u"CHANGE NOTES", None))
-        self.replaceCheckbox.setText(QCoreApplication.translate("MainWindow", u"Replace?", None))
         self.getData.setText(QCoreApplication.translate("MainWindow", u"GET DATA", None))
+        self.changeNotes.setText(QCoreApplication.translate("MainWindow", u"CHANGE NOTES", None))
+        self.txtAmount.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Amount", None))
+        self.replaceCheckbox.setText(QCoreApplication.translate("MainWindow", u"Replace?", None))
         self.changeIP.setText(QCoreApplication.translate("MainWindow", u"CHANGE IP", None))
         self.reInstall.setText(QCoreApplication.translate("MainWindow", u"REINSTALL", None))
         ___qtablewidgetitem = self.table.horizontalHeaderItem(1)

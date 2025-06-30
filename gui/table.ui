@@ -31,7 +31,7 @@
 QWidget {
 	background-color: rgb(40, 44, 52);
 	color: rgb(221, 221, 221);
-	font: 10px &quot;Segoe UI&quot; }
+	font: 15px &quot;Segoe UI&quot; }
 QCheckBox::indicator {
     border: 3px solid rgb(52, 59, 72);
 	width: 15px;
@@ -47,8 +47,7 @@ QTableCornerButton::section { background-color: rgb(33, 37, 43) }
 QTableWidget {	
 	padding: 5px;
 	gridline-color: rgb(44, 49, 58);
-	border-bottom: 1px solid rgb(44, 49, 60);
-	font-size: 10px }
+	border-bottom: 1px solid rgb(44, 49, 60); }
 QTableWidget::item{ border-color: rgb(44, 49, 60) }
 QTableWidget::item:selected{ background-color: rgb(189, 147, 249) }
 QHeaderView { qproperty-defaultAlignment: AlignCenter }
@@ -171,7 +170,7 @@ QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed {
           </size>
          </property>
          <property name="pixmap">
-          <pixmap>:/icons/icons/Logo.svg</pixmap>
+          <pixmap resource="../resources/resources.qrc">:/icons/icons/Logo.svg</pixmap>
          </property>
          <property name="alignment">
           <set>Qt::AlignmentFlag::AlignCenter</set>
@@ -243,7 +242,7 @@ QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed {
              </font>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="../resources/resources.qrc">
               <normaloff>:/icons/icons/minimize.svg</normaloff>:/icons/icons/minimize.svg</iconset>
             </property>
             <property name="iconSize">
@@ -263,7 +262,7 @@ QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed {
              </size>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="../resources/resources.qrc">
               <normaloff>:/icons/icons/maximize.svg</normaloff>
               <normalon>:/icons/icons/restore.svg</normalon>:/icons/icons/maximize.svg</iconset>
             </property>
@@ -287,7 +286,7 @@ QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed {
              </size>
             </property>
             <property name="icon">
-             <iconset>
+             <iconset resource="../resources/resources.qrc">
               <normaloff>:/icons/icons/close.svg</normaloff>:/icons/icons/close.svg</iconset>
             </property>
             <property name="iconSize">
@@ -357,83 +356,77 @@ QComboBox { background-color: rgb(33, 37, 43) }</string>
       <property name="frameShadow">
        <enum>QFrame::Shadow::Raised</enum>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <property name="spacing">
-        <number>20</number>
-       </property>
+      <layout class="QGridLayout" name="gridLayout_3">
        <property name="leftMargin">
         <number>20</number>
        </property>
        <property name="rightMargin">
         <number>20</number>
        </property>
-       <item>
+       <property name="horizontalSpacing">
+        <number>20</number>
+       </property>
+       <item row="0" column="0" rowspan="2">
         <widget class="QPlainTextEdit" name="txtIP">
          <property name="placeholderText">
           <string>Danh sách ip, mỗi ip một dòng</string>
          </property>
         </widget>
        </item>
-       <item>
-        <layout class="QGridLayout" name="gridLayout_3">
-         <property name="spacing">
+       <item row="0" column="1" colspan="2">
+        <layout class="QGridLayout" name="gridLayout_2">
+         <property name="horizontalSpacing">
           <number>20</number>
          </property>
-         <item row="0" column="0" colspan="2">
-          <layout class="QGridLayout" name="gridLayout_2">
-           <property name="horizontalSpacing">
-            <number>20</number>
+         <property name="verticalSpacing">
+          <number>10</number>
+         </property>
+         <item row="0" column="0">
+          <widget class="QPushButton" name="getData">
+           <property name="text">
+            <string>GET DATA</string>
            </property>
-           <property name="verticalSpacing">
-            <number>5</number>
+          </widget>
+         </item>
+         <item row="0" column="1" colspan="2">
+          <widget class="QPushButton" name="changeNotes">
+           <property name="text">
+            <string>CHANGE NOTES</string>
            </property>
-           <item row="0" column="1">
-            <widget class="QPushButton" name="changeNotes">
-             <property name="text">
-              <string>CHANGE NOTES</string>
-             </property>
-            </widget>
-           </item>
-           <item row="1" column="1">
-            <widget class="QLineEdit" name="txtNote"/>
-           </item>
-           <item row="2" column="1">
-            <widget class="QCheckBox" name="replaceCheckbox">
-             <property name="text">
-              <string>Replace?</string>
-             </property>
-            </widget>
-           </item>
-           <item row="0" column="0" rowspan="3">
-            <widget class="QPushButton" name="getData">
-             <property name="sizePolicy">
-              <sizepolicy hsizetype="Minimum" vsizetype="Expanding">
-               <horstretch>0</horstretch>
-               <verstretch>0</verstretch>
-              </sizepolicy>
-             </property>
-             <property name="text">
-              <string>GET DATA</string>
-             </property>
-            </widget>
-           </item>
-          </layout>
+          </widget>
          </item>
          <item row="1" column="0">
-          <widget class="QPushButton" name="changeIP">
-           <property name="text">
-            <string>CHANGE IP</string>
+          <widget class="QLineEdit" name="txtAmount">
+           <property name="placeholderText">
+            <string>Amount</string>
            </property>
           </widget>
          </item>
          <item row="1" column="1">
-          <widget class="QPushButton" name="reInstall">
+          <widget class="QLineEdit" name="txtNote"/>
+         </item>
+         <item row="1" column="2">
+          <widget class="QCheckBox" name="replaceCheckbox">
            <property name="text">
-            <string>REINSTALL</string>
+            <string>Replace?</string>
            </property>
           </widget>
          </item>
         </layout>
+       </item>
+       <item row="1" column="1">
+        <widget class="QPushButton" name="changeIP">
+         <property name="text">
+          <string>CHANGE IP</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2">
+        <widget class="QPushButton" name="reInstall">
+         <property name="text">
+          <string>REINSTALL</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
@@ -445,9 +438,6 @@ QComboBox { background-color: rgb(33, 37, 43) }</string>
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 15px</string>
       </property>
       <column>
        <property name="text">
@@ -505,8 +495,6 @@ QComboBox { background-color: rgb(33, 37, 43) }</string>
   </widget>
  </widget>
  <resources>
-  <include location="../resources/resources.qrc"/>
-  <include location="../resources/resources.qrc"/>
   <include location="../resources/resources.qrc"/>
  </resources>
  <connections/>
