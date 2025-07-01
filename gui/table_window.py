@@ -4,7 +4,7 @@ from PySide6.QtGui import QShortcut, QKeySequence, QGuiApplication
 
 import json
 import server_api
-from workers.change_notes import ChangeNotes
+from workers import ChangeNotes, Reinstall
 
 from gui.ui_table import Ui_MainWindow
 from gui.window_control import WindowController
@@ -108,14 +108,23 @@ class TableWindow(QMainWindow):
         worker = ChangeNotes(
             list(selected_rows), note, self.ui.replaceCheckbox.isChecked(), self.ui.table
         )
-        worker.signals.change_table.connect(self.handle_note_result)
+        worker.signals.change_table.connect(self.handle_result)
         
         QThreadPool.globalInstance().start(worker)
         
-    def handle_note_result(self, row, success, note):
+    def run_reinstall(self):
+        selected_rows = set(item.row() for item in self.ui.table.selectedItems())
+
+        worker = Reinstall(list(selected_rows), self.ui.table)
+        worker.signals.change_table.connect(self.handle_result)
+        
+        QThreadPool.globalInstance().start(worker)
+        
+    def handle_result(self, row, success, note: str = None):
         if success:
             self.ui.table.setItem(row, 0, self.table_item("✔️"))
-            self.ui.table.setItem(row, 9, self.table_item(note))
+            if note is not None:
+                self.ui.table.setItem(row, 9, self.table_item(note))
         else:
             self.ui.table.setItem(row, 0, self.table_item("❌"))
             
