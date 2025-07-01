@@ -22,7 +22,7 @@ class Reinstall(QRunnable):
             if not item:
                 self.signals.change_table.emit(row, False)
                 continue
-            proxy_info = server_api.reinstall(item.text())
+            proxy_info = server_api.reinstall(sid=item.text())
             if proxy_info is not None:
                 print(proxy_info)
                 str_for_copy += proxy_info + "\n"

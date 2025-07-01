@@ -36,6 +36,7 @@ class TableWindow(QMainWindow):
         
         self.ui.getData.clicked.connect(self.run_get_data)
         self.ui.changeNotes.clicked.connect(self.run_change_notes)
+        self.ui.reInstall.clicked.connect(self.run_reinstall)
         undo_shortcut = QShortcut(QKeySequence("Ctrl+Z"), self)
         undo_shortcut.activated.connect(self.undoDelete)
         

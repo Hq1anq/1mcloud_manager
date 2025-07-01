@@ -84,8 +84,8 @@ def change_notes(sids: str, note: str):
 def reinstall(sid: str, custom_info: str = None, type: str = "proxy_https") -> str:
     url = "https://api.smartserver.vn/api/server/reinstall"
 
-    list_info = custom_info.split(":")
     if custom_info is not None:
+        list_info = custom_info.split(":")
         data =  {
             "random_remote_port": "",
             "remote_port": list_info[1],
@@ -111,9 +111,7 @@ def reinstall(sid: str, custom_info: str = None, type: str = "proxy_https") -> s
     response = requests.post(url, headers=headers, json=data)
     if response.status_code == 200:
         raw_data = response.json()
-        print(raw_data)
         proxy_info = f"{raw_data['ip']}:{raw_data['remote_port']}:{raw_data['username']}:{raw_data['password']}"
-        print(proxy_info)
         return proxy_info
     else:
         print(f"❌{data['sid']}")

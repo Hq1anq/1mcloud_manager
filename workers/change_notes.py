@@ -29,7 +29,7 @@ class ChangeNotes(QRunnable):
                 parts = self.table.item(row, 9).text().strip().split(maxsplit=1)
                 suffix = parts[1] if len(parts) > 1 else ""
                 note_to_send = self.note + suffix
-            status_code = server_api.change_note(item.text(), note_to_send)
+            status_code = server_api.change_note(sid=item.text(), note=note_to_send)
             if status_code == 200:
                 self.signals.change_table.emit(row, True, note_to_send)
             else:
