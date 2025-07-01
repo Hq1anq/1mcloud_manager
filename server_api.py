@@ -59,6 +59,50 @@ def get_data_from_ip(ips: str, save: bool = True) -> list:
     else:
         print("❌ Request failed:", response.status_code)
         return None
+
+def get_data_from_amount(amount: int, save:bool = True) -> list:
+    url = "https://api.smartserver.vn/api/server/list"
+    
+    params = {
+        "page": 1,
+        "limit": amount,
+        "by_status": "",
+        "by_time": "using",
+        "by_created": "",
+        "keyword": "",
+        "ips": "",
+        "proxy": "true"
+    }
+
+    response = requests.get(url, headers=headers, params=params)
+    if response.status_code == 200:
+        raw_data: dict = response.json()
+        servers: list[dict] = raw_data.get("servers", [])
+        
+        data = []
+        for server in servers:
+            filtered = {
+                "server_id": server.get("server_id"),
+                "ip_port": server.get("ip_port"),
+                "country": server.get("country"),
+                "plan_number": server.get("plan_number"),
+                "ngay_mua": server.get("ngay_mua"),
+                "het_han": server.get("het_han"),
+                "changed_ip": server.get("change_ip_time"),
+                "trang_thai": server.get("trang_thai"),
+                "note": server.get("note")
+            }
+            data.append(filtered)
+
+        if save:
+            # 💾 Save to JSON file
+            with open("data.json", "w", encoding="utf-8") as f:
+                json.dump(data, f, ensure_ascii=False, indent=4)
+            print("✅ Data saved to data.json")
+        return data
+    else:
+        print("❌ Request failed:", response.status_code)
+        return None
     
 def change_note(sid: str, note: str) -> int:
     url = "https://api.smartserver.vn/api/server/info/note"

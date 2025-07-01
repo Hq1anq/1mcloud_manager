@@ -48,8 +48,15 @@ class TableWindow(QMainWindow):
         self.load_data2table(self.data)
         
     def run_get_data(self):
-        data = server_api.get_data_from_ip(self.ui.txtIP.toPlainText())
-        self.load_data2table(data)
+        ips = self.ui.txtIP.toPlainText()
+        if ips != "":
+            data = server_api.get_data_from_ip(ips)
+            self.load_data2table(data)
+        else:
+            amount = self.ui.txtAmount.text()
+            if amount != "":
+                data = server_api.get_data_from_amount(int(amount))
+                self.load_data2table(data)
     
     def mousePressEvent(self, event):
         # Get the current position of the mouse
@@ -87,15 +94,24 @@ class TableWindow(QMainWindow):
             self.filter_edits.append(edit)
     
     def filter_table(self):
+        visible_index = 1
         for row in range(1, self.ui.table.rowCount()):  # Skip filter row
             show_row = True
-            for col, edit in enumerate(self.filter_edits):
+            for col, edit in enumerate(self.filter_edits, start=1):
                 filter_text = edit.text().strip().lower()
-                item = self.ui.table.item(row, col + 1)
+                item = self.ui.table.item(row, col)
                 if filter_text and (not item or filter_text not in item.text().lower()):
                     show_row = False
                     break
-            self.ui.table.setRowHidden(row, not show_row)
+            
+            # Show/hide row and update row counter
+            if show_row:
+                self.ui.table.setRowHidden(row, False)
+                item = self.ui.table.item(row, 0)
+                item.setText(str(visible_index))
+                visible_index += 1
+            else:
+                self.ui.table.setRowHidden(row, True)
 
     def addRow(self):
         currentRow = self.ui.table.currentRow()
