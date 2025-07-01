@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QMainWindow, QSizeGrip, QTableWidgetItem, QHeaderView
+from PySide6.QtWidgets import QMainWindow, QSizeGrip, QTableWidgetItem, QHeaderView, QLineEdit
 from PySide6.QtCore import Qt, QThreadPool
 from PySide6.QtGui import QShortcut, QKeySequence, QGuiApplication
 
@@ -34,6 +34,8 @@ class TableWindow(QMainWindow):
 
         self.deleted_rows = []
         
+        self.setup_filter_row()
+        
         self.ui.getData.clicked.connect(self.run_get_data)
         self.ui.changeNotes.clicked.connect(self.run_change_notes)
         self.ui.reInstall.clicked.connect(self.run_reinstall)
@@ -58,6 +60,8 @@ class TableWindow(QMainWindow):
         self.window_controller.update_grips_geometry()
         
     def adjust_column_width(self):
+        # Temporarily hide filter row
+        self.ui.table.setRowHidden(0, True)
         header = self.ui.table.horizontalHeader()
 
         # Set columns 0-8 to ResizeToContents (fixed, minimum size)
@@ -68,6 +72,30 @@ class TableWindow(QMainWindow):
 
         # Set last column (9) to Stretch (expand with parent)
         header.setSectionResizeMode(9, QHeaderView.ResizeMode.Stretch)
+        # Show filter row again
+        self.ui.table.setRowHidden(0, False)
+    
+    def setup_filter_row(self):
+        self.ui.table.setRowCount(1)  # Ensure at least one row for filters
+        self.filter_edits = []
+        for col in range(1, self.ui.table.columnCount()):
+            edit = QLineEdit()
+            edit.setPlaceholderText("Filter")
+            edit.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            edit.returnPressed.connect(self.filter_table)
+            self.ui.table.setCellWidget(0, col, edit)
+            self.filter_edits.append(edit)
+    
+    def filter_table(self):
+        for row in range(1, self.ui.table.rowCount()):  # Skip filter row
+            show_row = True
+            for col, edit in enumerate(self.filter_edits):
+                filter_text = edit.text().strip().lower()
+                item = self.ui.table.item(row, col + 1)
+                if filter_text and (not item or filter_text not in item.text().lower()):
+                    show_row = False
+                    break
+            self.ui.table.setRowHidden(row, not show_row)
 
     def addRow(self):
         currentRow = self.ui.table.currentRow()
@@ -152,8 +180,8 @@ class TableWindow(QMainWindow):
         except:
             return None
     def load_data2table(self, data: list[dict]):
-        self.ui.table.setRowCount(len(data))  # Set number of rows
-        for row, server in enumerate(data):
+        self.ui.table.setRowCount(len(data) + 1)  # Set number of rows
+        for row, server in enumerate(data, start=1):
             items = [
                 QTableWidgetItem(str(server.get("server_id", ""))),
                 QTableWidgetItem(server.get("ip_port", "")),
