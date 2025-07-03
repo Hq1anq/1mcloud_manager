@@ -153,7 +153,7 @@ class TableWindow(QMainWindow):
         worker = ChangeNotes(
             list(selected_rows), note, self.ui.replaceCheckbox.isChecked(), self.ui.table
         )
-        worker.signals.change_table.connect(self.handle_result)
+        worker.signals.change_table.connect(self.update_row)
         
         QThreadPool.globalInstance().start(worker)
         
@@ -161,15 +161,17 @@ class TableWindow(QMainWindow):
         selected_rows = set(item.row() for item in self.ui.table.selectedItems())
 
         worker = Reinstall(list(selected_rows), self.ui.table)
-        worker.signals.change_table.connect(self.handle_result)
+        worker.signals.change_table.connect(self.update_row)
         
         QThreadPool.globalInstance().start(worker)
         
-    def handle_result(self, row, success, note: str = None):
+    def update_row(self, row, success, note: str = None, ip_port: str = None):
         if success:
             self.ui.table.setItem(row, 0, self.table_item("✔️"))
             if note is not None:
                 self.ui.table.setItem(row, 9, self.table_item(note))
+            if ip_port is not None:
+                self.ui.table.setItem(row, 2, self.table_item(ip_port))
         else:
             self.ui.table.setItem(row, 0, self.table_item("❌"))
             

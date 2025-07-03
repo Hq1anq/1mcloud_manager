@@ -13,7 +13,7 @@ headers = {
     "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/137.0.0.0 Safari/537.36",
 }
 
-def get_data_from_ip(ips: str, save: bool = True) -> list:
+def get_data_from_ip(ips: str, save: bool = False) -> list:
     url = "https://api.smartserver.vn/api/server/list"
     
     # Convert to comma-separated string
@@ -125,7 +125,7 @@ def change_notes(sids: str, note: str):
         print(f"Sent for {data['sid']} -> {response.status_code}")
         time.sleep(0.5)  # optional: delay to avoid hitting rate limits
     
-def reinstall(sid: str, custom_info: str = None, type: str = "proxy_https") -> str:
+def reinstall(sid: str, custom_info: str = None, type: str = "proxy_https") -> list:
     url = "https://api.smartserver.vn/api/server/reinstall"
 
     if custom_info is not None:
@@ -155,7 +155,7 @@ def reinstall(sid: str, custom_info: str = None, type: str = "proxy_https") -> s
     response = requests.post(url, headers=headers, json=data)
     if response.status_code == 200:
         raw_data = response.json()
-        proxy_info = f"{raw_data['ip']}:{raw_data['remote_port']}:{raw_data['username']}:{raw_data['password']}"
+        proxy_info = [raw_data['ip'], raw_data['remote_port'], raw_data['username'], raw_data['password']]
         return proxy_info
     else:
         print(f"❌{data['sid']}")

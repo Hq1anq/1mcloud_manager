@@ -6,7 +6,7 @@ from PySide6.QtWidgets import QTableWidget
 class ChangeNotes(QRunnable):
     
     class Signals(QObject):
-        change_table = Signal(int, bool, str)  # row, success, note
+        change_table = Signal(int, bool, str, str)  # row, success, note
         
     def __init__(self, rows, note, replace, table):
         super().__init__()
@@ -20,7 +20,7 @@ class ChangeNotes(QRunnable):
         for row in self.rows:
             item = self.table.item(row, 1)
             if not item:
-                self.signals.change_table.emit(row, False, self.note)
+                self.signals.change_table.emit(row, False, self.note, None)
                 continue
             if self.replace:
                 note_to_send = self.note.strip()
@@ -31,6 +31,6 @@ class ChangeNotes(QRunnable):
                 note_to_send = self.note + suffix
             status_code = server_api.change_note(sid=item.text(), note=note_to_send)
             if status_code == 200:
-                self.signals.change_table.emit(row, True, note_to_send)
+                self.signals.change_table.emit(row, True, note_to_send, None)
             else:
-                self.signals.change_table.emit(row, False, None)
+                self.signals.change_table.emit(row, False, None, None)
