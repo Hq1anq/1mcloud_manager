@@ -168,9 +168,9 @@ class TableWindow(QMainWindow):
     def update_row(self, row, success, note: str = None, ip_port: str = None):
         if success:
             self.ui.table.setItem(row, 0, self.table_item("✔️"))
-            if note is not None:
+            if note:
                 self.ui.table.setItem(row, 9, self.table_item(note))
-            if ip_port is not None:
+            if ip_port:
                 self.ui.table.setItem(row, 2, self.table_item(ip_port))
         else:
             self.ui.table.setItem(row, 0, self.table_item("❌"))
