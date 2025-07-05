@@ -7,6 +7,7 @@ class ChangeNotes(QRunnable):
     
     class Signals(QObject):
         change_table = Signal(int, bool, str, str)  # row, success, note
+        finished_log = Signal(str)
         
     def __init__(self, rows, note, replace, table):
         super().__init__()
@@ -34,3 +35,5 @@ class ChangeNotes(QRunnable):
                 self.signals.change_table.emit(row, True, note_to_send, None)
             else:
                 self.signals.change_table.emit(row, False, None, None)
+        
+        self.signals.finished_log("Change notes - DONE!")

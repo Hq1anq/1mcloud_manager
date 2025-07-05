@@ -9,6 +9,8 @@ from workers import ChangeNotes, Reinstall
 from gui.ui_table import Ui_MainWindow
 from gui.window_control import WindowController
 
+DATA_PATH = "data.json"
+
 class TableWindow(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
@@ -39,13 +41,14 @@ class TableWindow(QMainWindow):
         self.ui.getData.clicked.connect(self.run_get_data)
         self.ui.changeNotes.clicked.connect(self.run_change_notes)
         self.ui.reInstall.clicked.connect(self.run_reinstall)
+        self.ui.reload.clicked.connect(self.reload)
+        
         undo_shortcut = QShortcut(QKeySequence("Ctrl+Z"), self)
         undo_shortcut.activated.connect(self.undoDelete)
         
         self.show()
         
-        self.load_data()
-        self.load_data2table(self.data)
+        self.reload()
         
     def run_get_data(self):
         ips = self.ui.txtIP.toPlainText()
@@ -57,6 +60,48 @@ class TableWindow(QMainWindow):
             if amount != "":
                 data = server_api.get_data_from_amount(int(amount))
                 self.load_data2table(data)
+        self.ui.statusTable.setText("Get Data - DONE!")
+    
+    def run_change_notes(self):
+        selected_rows = set(item.row() for item in self.ui.table.selectedItems())
+        note = self.ui.txtNote.text()
+        if not note.strip():
+            return
+
+        worker = ChangeNotes(
+            list(selected_rows), note, self.ui.replaceCheckbox.isChecked(), self.ui.table
+        )
+        worker.signals.change_table.connect(self.update_row)
+        worker.signals.finished_log.connect(self.show_status)
+        
+        QThreadPool.globalInstance().start(worker)
+        
+    def run_reinstall(self):
+        selected_rows = set(item.row() for item in self.ui.table.selectedItems())
+
+        worker = Reinstall(list(selected_rows), self.ui.txtReinstall.text().strip(), self.ui.table)
+        worker.signals.change_table.connect(self.update_row)
+        worker.signals.finished_log.connect(self.show_status)
+        
+        QThreadPool.globalInstance().start(worker)
+        
+    def reload(self):
+        '''Load json file to table widget'''
+        self.load_data(DATA_PATH)
+        self.load_data2table(self.data)
+        
+    def update_row(self, row, success, note: str = None, ip_port: str = None):
+        if success:
+            self.ui.table.setItem(row, 0, self.table_item("✔️"))
+            if note:
+                self.ui.table.setItem(row, 9, self.table_item(note))
+            if ip_port:
+                self.ui.table.setItem(row, 2, self.table_item(ip_port))
+        else:
+            self.ui.table.setItem(row, 0, self.table_item("❌"))
+    
+    def show_status(self, log: str):
+        self.ui.statusTable.setText(log)
     
     def mousePressEvent(self, event):
         # Get the current position of the mouse
@@ -98,7 +143,7 @@ class TableWindow(QMainWindow):
         for row in range(1, self.ui.table.rowCount()):  # Skip filter row
             show_row = True
             for col, edit in enumerate(self.filter_edits, start=1):
-                filter_text = edit.text().strip().lower()
+                filter_text = edit.text().lower()
                 item = self.ui.table.item(row, col)
                 if filter_text and (not item or filter_text not in item.text().lower()):
                     show_row = False
@@ -143,37 +188,6 @@ class TableWindow(QMainWindow):
         item = QTableWidgetItem(text)
         item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
         return item
-    
-    def run_change_notes(self):
-        selected_rows = set(item.row() for item in self.ui.table.selectedItems())
-        note = self.ui.txtNote.text()
-        if not note.strip():
-            return
-
-        worker = ChangeNotes(
-            list(selected_rows), note, self.ui.replaceCheckbox.isChecked(), self.ui.table
-        )
-        worker.signals.change_table.connect(self.update_row)
-        
-        QThreadPool.globalInstance().start(worker)
-        
-    def run_reinstall(self):
-        selected_rows = set(item.row() for item in self.ui.table.selectedItems())
-
-        worker = Reinstall(list(selected_rows), self.ui.table)
-        worker.signals.change_table.connect(self.update_row)
-        
-        QThreadPool.globalInstance().start(worker)
-        
-    def update_row(self, row, success, note: str = None, ip_port: str = None):
-        if success:
-            self.ui.table.setItem(row, 0, self.table_item("✔️"))
-            if note:
-                self.ui.table.setItem(row, 9, self.table_item(note))
-            if ip_port:
-                self.ui.table.setItem(row, 2, self.table_item(ip_port))
-        else:
-            self.ui.table.setItem(row, 0, self.table_item("❌"))
             
     def keyPressEvent(self, event):
         if event.matches(QKeySequence.Copy):
@@ -190,7 +204,7 @@ class TableWindow(QMainWindow):
         copied_text = "\n".join(item.text() for item in selected_items)
         QGuiApplication.clipboard().setText(copied_text)
     
-    def load_data(self, file_path: str = "data.json"):
+    def load_data(self, file_path: str):
         try:
             with open(file_path, "r", encoding="utf-8") as f:
                 self.data = json.load(f)

@@ -151,7 +151,6 @@ def reinstall(sid: str, custom_info: str = None, type: str = "proxy_https") -> l
             "type": type,
             "sid": sid
         }
-    
     response = requests.post(url, headers=headers, json=data)
     if response.status_code == 200:
         raw_data = response.json()

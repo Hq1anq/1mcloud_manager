@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'tableSEsJRl.ui'
+## Form generated from reading UI file 'tablezRHhoR.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -20,6 +20,7 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QGridLayout,
     QMainWindow, QPlainTextEdit, QPushButton, QSizePolicy,
     QTableWidget, QTableWidgetItem, QWidget)
 
+from .highlight_widget import HighlightLabel
 import resources.resources_rc
 
 class Ui_MainWindow(object):
@@ -234,13 +235,6 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.contentTop, 0, 0, 1, 2)
 
-        self.statusTable = QLabel(self.centralwidget)
-        self.statusTable.setObjectName(u"statusTable")
-        self.statusTable.setStyleSheet(u"color: yellow")
-        self.statusTable.setAlignment(Qt.AlignmentFlag.AlignCenter)
-
-        self.gridLayout.addWidget(self.statusTable, 3, 0, 1, 2)
-
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
@@ -274,76 +268,79 @@ class Ui_MainWindow(object):
 "QComboBox { background-color: rgb(33, 37, 43) }")
         self.frame.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QFrame.Shadow.Raised)
-        self.gridLayout_3 = QGridLayout(self.frame)
-        self.gridLayout_3.setObjectName(u"gridLayout_3")
-        self.gridLayout_3.setHorizontalSpacing(20)
-        self.gridLayout_3.setContentsMargins(20, -1, 20, -1)
-        self.pushButton_2 = QPushButton(self.frame)
-        self.pushButton_2.setObjectName(u"pushButton_2")
-
-        self.gridLayout_3.addWidget(self.pushButton_2, 1, 4, 1, 1)
-
-        self.changeIP = QPushButton(self.frame)
-        self.changeIP.setObjectName(u"changeIP")
-
-        self.gridLayout_3.addWidget(self.changeIP, 1, 1, 1, 1)
-
+        self.horizontalLayout_2 = QHBoxLayout(self.frame)
+        self.horizontalLayout_2.setSpacing(20)
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
         self.txtIP = QPlainTextEdit(self.frame)
         self.txtIP.setObjectName(u"txtIP")
 
-        self.gridLayout_3.addWidget(self.txtIP, 0, 0, 2, 1)
+        self.horizontalLayout_2.addWidget(self.txtIP)
 
         self.gridLayout_2 = QGridLayout()
+        self.gridLayout_2.setSpacing(10)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
-        self.gridLayout_2.setHorizontalSpacing(20)
-        self.gridLayout_2.setVerticalSpacing(10)
-        self.replaceCheckbox = QCheckBox(self.frame)
-        self.replaceCheckbox.setObjectName(u"replaceCheckbox")
-
-        self.gridLayout_2.addWidget(self.replaceCheckbox, 1, 4, 1, 1)
-
         self.getData = QPushButton(self.frame)
         self.getData.setObjectName(u"getData")
 
         self.gridLayout_2.addWidget(self.getData, 0, 0, 1, 1)
 
-        self.btn_homeReload = QPushButton(self.frame)
-        self.btn_homeReload.setObjectName(u"btn_homeReload")
-        self.btn_homeReload.setMaximumSize(QSize(43, 43))
+        self.reload = QPushButton(self.frame)
+        self.reload.setObjectName(u"reload")
+        self.reload.setMaximumSize(QSize(43, 43))
         icon4 = QIcon()
         icon4.addFile(u":/icons/icons/update.svg", QSize(), QIcon.Mode.Normal, QIcon.State.Off)
-        self.btn_homeReload.setIcon(icon4)
-        self.btn_homeReload.setIconSize(QSize(30, 30))
+        self.reload.setIcon(icon4)
+        self.reload.setIconSize(QSize(30, 30))
 
-        self.gridLayout_2.addWidget(self.btn_homeReload, 0, 1, 1, 1)
+        self.gridLayout_2.addWidget(self.reload, 0, 1, 1, 1)
 
         self.changeNotes = QPushButton(self.frame)
         self.changeNotes.setObjectName(u"changeNotes")
 
-        self.gridLayout_2.addWidget(self.changeNotes, 0, 2, 1, 3)
+        self.gridLayout_2.addWidget(self.changeNotes, 0, 2, 1, 2)
 
-        self.txtNote = QLineEdit(self.frame)
-        self.txtNote.setObjectName(u"txtNote")
+        self.reInstall = QPushButton(self.frame)
+        self.reInstall.setObjectName(u"reInstall")
 
-        self.gridLayout_2.addWidget(self.txtNote, 1, 2, 1, 2)
+        self.gridLayout_2.addWidget(self.reInstall, 0, 4, 1, 1)
 
         self.txtAmount = QLineEdit(self.frame)
         self.txtAmount.setObjectName(u"txtAmount")
 
         self.gridLayout_2.addWidget(self.txtAmount, 1, 0, 1, 2)
 
+        self.txtNote = QLineEdit(self.frame)
+        self.txtNote.setObjectName(u"txtNote")
 
-        self.gridLayout_3.addLayout(self.gridLayout_2, 0, 1, 1, 4)
+        self.gridLayout_2.addWidget(self.txtNote, 1, 2, 1, 1)
 
-        self.reInstall = QPushButton(self.frame)
-        self.reInstall.setObjectName(u"reInstall")
+        self.replaceCheckbox = QCheckBox(self.frame)
+        self.replaceCheckbox.setObjectName(u"replaceCheckbox")
 
-        self.gridLayout_3.addWidget(self.reInstall, 1, 2, 1, 1)
+        self.gridLayout_2.addWidget(self.replaceCheckbox, 1, 3, 1, 1)
 
-        self.pushButton = QPushButton(self.frame)
-        self.pushButton.setObjectName(u"pushButton")
+        self.txtReinstall = QLineEdit(self.frame)
+        self.txtReinstall.setObjectName(u"txtReinstall")
 
-        self.gridLayout_3.addWidget(self.pushButton, 1, 3, 1, 1)
+        self.gridLayout_2.addWidget(self.txtReinstall, 1, 4, 1, 1)
+
+        self.pause = QPushButton(self.frame)
+        self.pause.setObjectName(u"pause")
+
+        self.gridLayout_2.addWidget(self.pause, 2, 2, 1, 2)
+
+        self.refund = QPushButton(self.frame)
+        self.refund.setObjectName(u"refund")
+
+        self.gridLayout_2.addWidget(self.refund, 2, 4, 1, 1)
+
+        self.changeIP = QPushButton(self.frame)
+        self.changeIP.setObjectName(u"changeIP")
+
+        self.gridLayout_2.addWidget(self.changeIP, 2, 0, 1, 2)
+
+
+        self.horizontalLayout_2.addLayout(self.gridLayout_2)
 
 
         self.gridLayout.addWidget(self.frame, 4, 0, 1, 2)
@@ -380,6 +377,13 @@ class Ui_MainWindow(object):
 
         self.gridLayout.addWidget(self.table, 7, 0, 1, 2)
 
+        self.statusTable = HighlightLabel(self.centralwidget)
+        self.statusTable.setObjectName(u"statusTable")
+        self.statusTable.setAlignment(Qt.AlignmentFlag.AlignCenter)
+
+        self.gridLayout.addWidget(self.statusTable, 5, 0, 1, 2)
+
+        self.gridLayout.setRowStretch(7, 1)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -390,16 +394,15 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         MainWindow.setWindowTitle(QCoreApplication.translate("MainWindow", u"MainWindow", None))
         self.title.setText(QCoreApplication.translate("MainWindow", u"1MCLOUD", None))
-        self.statusTable.setText("")
-        self.pushButton_2.setText(QCoreApplication.translate("MainWindow", u"REFUND", None))
-        self.changeIP.setText(QCoreApplication.translate("MainWindow", u"CHANGE IP", None))
         self.txtIP.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Danh s\u00e1ch ip, m\u1ed7i ip m\u1ed9t d\u00f2ng", None))
-        self.replaceCheckbox.setText(QCoreApplication.translate("MainWindow", u"Replace?", None))
         self.getData.setText(QCoreApplication.translate("MainWindow", u"GET DATA", None))
         self.changeNotes.setText(QCoreApplication.translate("MainWindow", u"CHANGE NOTES", None))
-        self.txtAmount.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Amount", None))
         self.reInstall.setText(QCoreApplication.translate("MainWindow", u"REINSTALL", None))
-        self.pushButton.setText(QCoreApplication.translate("MainWindow", u"PAUSE", None))
+        self.txtAmount.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Amount", None))
+        self.replaceCheckbox.setText(QCoreApplication.translate("MainWindow", u"Replace?", None))
+        self.pause.setText(QCoreApplication.translate("MainWindow", u"PAUSE", None))
+        self.refund.setText(QCoreApplication.translate("MainWindow", u"REFUND", None))
+        self.changeIP.setText(QCoreApplication.translate("MainWindow", u"CHANGE IP", None))
         ___qtablewidgetitem = self.table.horizontalHeaderItem(1)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"SID", None));
         ___qtablewidgetitem1 = self.table.horizontalHeaderItem(2)
