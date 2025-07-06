@@ -36,4 +36,4 @@ class ChangeNotes(QRunnable):
             else:
                 self.signals.change_table.emit(row, False, None, None)
         
-        self.signals.finished_log("Change notes - DONE!")
+        self.signals.finished_log.emit("Change notes - DONE!")

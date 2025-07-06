@@ -38,4 +38,4 @@ class Reinstall(QRunnable):
                 self.signals.change_table.emit(row, False, None, None)
             time.sleep(2)
         pyperclip.copy(str_for_copy)
-        self.signals.finished_log("Reinstall - DONE!")
+        self.signals.finished_log.emit("Reinstall - DONE!")
