@@ -43,6 +43,8 @@ class TableWindow(QMainWindow):
         self.ui.reInstall.clicked.connect(self.run_reinstall)
         self.ui.reload.clicked.connect(self.reload)
         
+        save_shortcut = QShortcut(QKeySequence("Ctrl+S"), self)
+        save_shortcut.activated.connect(self.save_table_to_file)
         undo_shortcut = QShortcut(QKeySequence("Ctrl+Z"), self)
         undo_shortcut.activated.connect(self.undoDelete)
         
@@ -89,6 +91,11 @@ class TableWindow(QMainWindow):
         '''Load json file to table widget'''
         self.load_data(DATA_PATH)
         self.load_data2table(self.data)
+        
+    # Add this method to your class:
+    def save_table_to_file(self):
+        self.save_data(DATA_PATH)
+        self.show_status("Saved data to: " + DATA_PATH)
         
     def update_row(self, row, success, note: str = None, ip_port: str = None):
         if success:
@@ -211,6 +218,7 @@ class TableWindow(QMainWindow):
                 return self.data
         except:
             return None
+        
     def load_data2table(self, data: list[dict]):
         self.ui.table.setRowCount(len(data) + 1)  # Set number of rows
         for row, server in enumerate(data, start=1):
@@ -232,3 +240,22 @@ class TableWindow(QMainWindow):
                 item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
                 self.ui.table.setItem(row, col, item)
         self.adjust_column_width()
+    
+    def save_data(self, file_path: str):
+        data = []
+        # Start from row 1 to skip filter row
+        for row in range(1, self.ui.table.rowCount()):
+            row_dict = {
+                "server_id": int(self.ui.table.item(row, 1).text()) if self.ui.table.item(row, 1) else "",
+                "ip_port": self.ui.table.item(row, 2).text() if self.ui.table.item(row, 2) else "",
+                "country": self.ui.table.item(row, 3).text() if self.ui.table.item(row, 3) else "",
+                "plan_number": self.ui.table.item(row, 4).text() if self.ui.table.item(row, 4) else "",
+                "ngay_mua": self.ui.table.item(row, 5).text() if self.ui.table.item(row, 5) else "",
+                "het_han": self.ui.table.item(row, 6).text() if self.ui.table.item(row, 6) else "",
+                "trang_thai": self.ui.table.item(row, 7).text() if self.ui.table.item(row, 7) else "",
+                "changed_ip": int(self.ui.table.item(row, 8).text()) if self.ui.table.item(row, 8) else "",
+                "note": self.ui.table.item(row, 9).text() if self.ui.table.item(row, 9) else "",
+            }
+            data.append(row_dict)
+        with open(file_path, "w", encoding="utf-8") as f:
+            json.dump(data, f, ensure_ascii=False, indent=4)
