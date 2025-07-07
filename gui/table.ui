@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1150</width>
-    <height>603</height>
+    <height>650</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -29,9 +29,9 @@
 #contentTop { background-color: rgb(33, 37, 43) }
 #contentTop .QLabel { background-color: transparent; font-size: 15px }
 QWidget {
-	background-color: rgb(40, 44, 52);
 	color: rgb(221, 221, 221);
 	font: 15px &quot;Segoe UI&quot; }
+QFrame { background-color: rgb(40, 44, 52) }
 QCheckBox::indicator {
     border: 3px solid rgb(52, 59, 72);
 	width: 15px;
@@ -43,18 +43,6 @@ QCheckBox::indicator:checked {
     background: 3px solid rgb(52, 59, 72);
 	border: 3px solid rgb(52, 59, 72);
 	background-image: url(:/icons/icons/check.svg) }
-QTableCornerButton::section { background-color: rgb(33, 37, 43) }
-QTableWidget {	
-	padding: 5px;
-	gridline-color: rgb(44, 49, 58);
-	border-bottom: 1px solid rgb(44, 49, 60); }
-QTableWidget::item{ border-color: rgb(44, 49, 60) }
-QTableWidget::item:selected{ background-color: rgb(189, 147, 249) }
-QHeaderView { qproperty-defaultAlignment: AlignCenter }
-QHeaderView::section{
-	background-color: rgb(33, 37, 43);
-	border: 1px solid rgb(44, 49, 60);
-	font-size: 15px }
 QScrollBar:horizontal {
 	border: none;
 	background: rgb(52, 59, 72);
@@ -139,19 +127,6 @@ QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed {
     <property name="spacing">
      <number>0</number>
     </property>
-    <item row="8" column="1" alignment="Qt::AlignmentFlag::AlignRight">
-     <widget class="QFrame" name="sizeGrip">
-      <property name="minimumSize">
-       <size>
-        <width>15</width>
-        <height>15</height>
-       </size>
-      </property>
-      <property name="cursor">
-       <cursorShape>SizeFDiagCursor</cursorShape>
-      </property>
-     </widget>
-    </item>
     <item row="0" column="0" colspan="2">
      <widget class="QFrame" name="contentTop">
       <property name="frameShape">
@@ -454,6 +429,20 @@ QComboBox { background-color: rgb(33, 37, 43) }</string>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
+      <property name="styleSheet">
+       <string notr="true">QTableCornerButton::section { background-color: rgb(33, 37, 43) }
+QTableWidget {	
+	padding: 5px;
+	gridline-color: rgb(44, 49, 58);
+	border-bottom: 1px solid rgb(44, 49, 60); }
+QTableWidget::item{ border-color: rgb(44, 49, 60) }
+QTableWidget::item:selected{ background-color: rgb(189, 147, 249) }
+QHeaderView { qproperty-defaultAlignment: AlignCenter }
+QHeaderView::section{
+	background-color: rgb(33, 37, 43);
+	border: 1px solid rgb(44, 49, 60);
+	font-size: 15px }</string>
+      </property>
       <column>
        <property name="text">
         <string/>
@@ -513,12 +502,89 @@ QComboBox { background-color: rgb(33, 37, 43) }</string>
       </property>
      </widget>
     </item>
+    <item row="8" column="0" colspan="2">
+     <widget class="QFrame" name="bottomBar">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>22</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>22</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(33, 37, 43)</string>
+      </property>
+      <layout class="QHBoxLayout" name="_31">
+       <property name="spacing">
+        <number>0</number>
+       </property>
+       <property name="leftMargin">
+        <number>0</number>
+       </property>
+       <property name="topMargin">
+        <number>0</number>
+       </property>
+       <property name="rightMargin">
+        <number>0</number>
+       </property>
+       <property name="bottomMargin">
+        <number>0</number>
+       </property>
+       <item alignment="Qt::AlignmentFlag::AlignLeft">
+        <widget class="QPushButton" name="credits">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>  © cre: h0anq.qianq</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="countRows">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Preferred">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string/>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignmentFlag::AlignRight|Qt::AlignmentFlag::AlignTrailing|Qt::AlignmentFlag::AlignVCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item alignment="Qt::AlignmentFlag::AlignRight">
+        <widget class="QFrame" name="sizeGrip">
+         <property name="minimumSize">
+          <size>
+           <width>22</width>
+           <height>0</height>
+          </size>
+         </property>
+         <property name="cursor">
+          <cursorShape>SizeFDiagCursor</cursorShape>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
    </layout>
   </widget>
  </widget>
  <resources>
   <include location="../resources/resources.qrc"/>
-  <include location="../../../python/Facebook/remake/resources/resources.qrc"/>
  </resources>
  <connections/>
 </ui>

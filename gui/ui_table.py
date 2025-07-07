@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'tablezRHhoR.ui'
+## Form generated from reading UI file 'tableijGviZ.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -19,15 +19,13 @@ from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QGridLayout,
     QHBoxLayout, QHeaderView, QLabel, QLineEdit,
     QMainWindow, QPlainTextEdit, QPushButton, QSizePolicy,
     QTableWidget, QTableWidgetItem, QWidget)
-
-from .highlight_widget import HighlightLabel
 import resources.resources_rc
 
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         if not MainWindow.objectName():
             MainWindow.setObjectName(u"MainWindow")
-        MainWindow.resize(1150, 603)
+        MainWindow.resize(1150, 650)
         self.centralwidget = QWidget(MainWindow)
         self.centralwidget.setObjectName(u"centralwidget")
         self.centralwidget.setStyleSheet(u"*{ border: none }\n"
@@ -44,9 +42,9 @@ class Ui_MainWindow(object):
 "#contentTop { background-color: rgb(33, 37, 43) }\n"
 "#contentTop .QLabel { background-color: transparent; font-size: 15px }\n"
 "QWidget {\n"
-"	background-color: rgb(40, 44, 52);\n"
 "	color: rgb(221, 221, 221);\n"
 "	font: 15px \"Segoe UI\" }\n"
+"QFrame { background-color: rgb(40, 44, 52) }\n"
 "QCheckBox::indicator {\n"
 "    border: 3px solid rgb(52, 59, 72);\n"
 "	width: 15px;\n"
@@ -56,21 +54,9 @@ class Ui_MainWindow(object):
 "QCheckBox::indicator:hover { border: 3px solid rgb(58, 66, 81) }\n"
 "QCheckBox::indicator:checked {\n"
 "    background: 3px solid rgb(52, 59, 72);\n"
-"	border: 3px solid rgb(52, 59, 72);\n"
-""
-                        "	background-image: url(:/icons/icons/check.svg) }\n"
-"QTableCornerButton::section { background-color: rgb(33, 37, 43) }\n"
-"QTableWidget {	\n"
-"	padding: 5px;\n"
-"	gridline-color: rgb(44, 49, 58);\n"
-"	border-bottom: 1px solid rgb(44, 49, 60); }\n"
-"QTableWidget::item{ border-color: rgb(44, 49, 60) }\n"
-"QTableWidget::item:selected{ background-color: rgb(189, 147, 249) }\n"
-"QHeaderView { qproperty-defaultAlignment: AlignCenter }\n"
-"QHeaderView::section{\n"
-"	background-color: rgb(33, 37, 43);\n"
-"	border: 1px solid rgb(44, 49, 60);\n"
-"	font-size: 15px }\n"
+"	border: 3px solid rgb(52, "
+                        "59, 72);\n"
+"	background-image: url(:/icons/icons/check.svg) }\n"
 "QScrollBar:horizontal {\n"
 "	border: none;\n"
 "	background: rgb(52, 59, 72);\n"
@@ -83,8 +69,7 @@ class Ui_MainWindow(object):
 "	border-radius: 4px }\n"
 "QScrollBar::handle:horizontal:hover, QScrollBar::handle:vertical:hover {\n"
 "	background: rgb(208, 181, 249) }\n"
-"QScrollBar::handle:horizontal:pressed, QScrollBar::handle:vertical:"
-                        "pressed {\n"
+"QScrollBar::handle:horizontal:pressed, QScrollBar::handle:vertical:pressed {\n"
 "	background: rgb(161, 103, 249) }\n"
 "QScrollBar::add-line:horizontal {\n"
 "	border: none;\n"
@@ -100,7 +85,8 @@ class Ui_MainWindow(object):
 "	width: 20px;\n"
 "	border-top-left-radius: 4px;\n"
 "	border-bottom-left-radius: 4px;\n"
-"	subcontrol-position: left;\n"
+"	subcontrol-position"
+                        ": left;\n"
 "	subcontrol-origin: margin }\n"
 "QScrollBar::up-arrow:horizontal, QScrollBar::down-arrow:horizontal,\n"
 "QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal,\n"
@@ -113,8 +99,7 @@ class Ui_MainWindow(object):
 "    width: 8px;\n"
 "    margin: 21px 0 21px 0;\n"
 "	border-radius: 0px }\n"
-"QScrollBar::handle:"
-                        "vertical {	\n"
+"QScrollBar::handle:vertical {	\n"
 "	background: rgb(189, 147, 249);\n"
 "	min-height: 25px;\n"
 "	border-radius: 4px }\n"
@@ -131,7 +116,8 @@ class Ui_MainWindow(object):
 "	background: rgb(55, 63, 77);\n"
 "	height: 20px;\n"
 "	border-top-left-radius: 4px;\n"
-"	border-top-right-radius: 4px;\n"
+"	borde"
+                        "r-top-right-radius: 4px;\n"
 "	subcontrol-position: top;\n"
 "	subcontrol-origin: margin }\n"
 "QScrollBar::add-line:horizontal:hover, QScrollBar::sub-line:horizontal:hover,\n"
@@ -144,13 +130,6 @@ class Ui_MainWindow(object):
         self.gridLayout.setSpacing(0)
         self.gridLayout.setObjectName(u"gridLayout")
         self.gridLayout.setContentsMargins(0, 0, 0, 0)
-        self.sizeGrip = QFrame(self.centralwidget)
-        self.sizeGrip.setObjectName(u"sizeGrip")
-        self.sizeGrip.setMinimumSize(QSize(15, 15))
-        self.sizeGrip.setCursor(QCursor(Qt.CursorShape.SizeFDiagCursor))
-
-        self.gridLayout.addWidget(self.sizeGrip, 8, 1, 1, 1, Qt.AlignmentFlag.AlignRight)
-
         self.contentTop = QFrame(self.centralwidget)
         self.contentTop.setObjectName(u"contentTop")
         self.contentTop.setFrameShape(QFrame.Shape.StyledPanel)
@@ -374,14 +353,63 @@ class Ui_MainWindow(object):
         sizePolicy3.setVerticalStretch(0)
         sizePolicy3.setHeightForWidth(self.table.sizePolicy().hasHeightForWidth())
         self.table.setSizePolicy(sizePolicy3)
+        self.table.setStyleSheet(u"QTableCornerButton::section { background-color: rgb(33, 37, 43) }\n"
+"QTableWidget {	\n"
+"	padding: 5px;\n"
+"	gridline-color: rgb(44, 49, 58);\n"
+"	border-bottom: 1px solid rgb(44, 49, 60); }\n"
+"QTableWidget::item{ border-color: rgb(44, 49, 60) }\n"
+"QTableWidget::item:selected{ background-color: rgb(189, 147, 249) }\n"
+"QHeaderView { qproperty-defaultAlignment: AlignCenter }\n"
+"QHeaderView::section{\n"
+"	background-color: rgb(33, 37, 43);\n"
+"	border: 1px solid rgb(44, 49, 60);\n"
+"	font-size: 15px }")
 
         self.gridLayout.addWidget(self.table, 7, 0, 1, 2)
 
-        self.statusTable = HighlightLabel(self.centralwidget)
+        self.statusTable = QLabel(self.centralwidget)
         self.statusTable.setObjectName(u"statusTable")
         self.statusTable.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
         self.gridLayout.addWidget(self.statusTable, 5, 0, 1, 2)
+
+        self.bottomBar = QFrame(self.centralwidget)
+        self.bottomBar.setObjectName(u"bottomBar")
+        self.bottomBar.setMinimumSize(QSize(0, 22))
+        self.bottomBar.setMaximumSize(QSize(16777215, 22))
+        self.bottomBar.setStyleSheet(u"background-color: rgb(33, 37, 43)")
+        self._31 = QHBoxLayout(self.bottomBar)
+        self._31.setSpacing(0)
+        self._31.setObjectName(u"_31")
+        self._31.setContentsMargins(0, 0, 0, 0)
+        self.credits = QPushButton(self.bottomBar)
+        self.credits.setObjectName(u"credits")
+        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy4.setHorizontalStretch(0)
+        sizePolicy4.setVerticalStretch(0)
+        sizePolicy4.setHeightForWidth(self.credits.sizePolicy().hasHeightForWidth())
+        self.credits.setSizePolicy(sizePolicy4)
+
+        self._31.addWidget(self.credits, 0, Qt.AlignmentFlag.AlignLeft)
+
+        self.countRows = QLabel(self.bottomBar)
+        self.countRows.setObjectName(u"countRows")
+        sizePolicy.setHeightForWidth(self.countRows.sizePolicy().hasHeightForWidth())
+        self.countRows.setSizePolicy(sizePolicy)
+        self.countRows.setAlignment(Qt.AlignmentFlag.AlignRight|Qt.AlignmentFlag.AlignTrailing|Qt.AlignmentFlag.AlignVCenter)
+
+        self._31.addWidget(self.countRows)
+
+        self.sizeGrip = QFrame(self.bottomBar)
+        self.sizeGrip.setObjectName(u"sizeGrip")
+        self.sizeGrip.setMinimumSize(QSize(22, 0))
+        self.sizeGrip.setCursor(QCursor(Qt.CursorShape.SizeFDiagCursor))
+
+        self._31.addWidget(self.sizeGrip, 0, Qt.AlignmentFlag.AlignRight)
+
+
+        self.gridLayout.addWidget(self.bottomBar, 8, 0, 1, 2)
 
         self.gridLayout.setRowStretch(7, 1)
         MainWindow.setCentralWidget(self.centralwidget)
@@ -421,5 +449,7 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"CHANGED_IP", None));
         ___qtablewidgetitem8 = self.table.horizontalHeaderItem(9)
         ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"NOTE", None));
+        self.credits.setText(QCoreApplication.translate("MainWindow", u"  \u00a9 cre: h0anq.qianq", None))
+        self.countRows.setText("")
     # retranslateUi
 

@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QMainWindow, QSizeGrip, QTableWidgetItem, QHeaderView, QLineEdit
 from PySide6.QtCore import Qt, QThreadPool
-from PySide6.QtGui import QShortcut, QKeySequence, QGuiApplication
+from PySide6.QtGui import QShortcut, QKeySequence, QGuiApplication, QColor
 
 import json
 import server_api
@@ -38,10 +38,29 @@ class TableWindow(QMainWindow):
         
         self.setup_filter_row()
         
+        # Remove style of item in table for not overwite when setting background
+        self.ui.table.setStyleSheet(
+            """QTableCornerButton::section { background-color: rgb(33, 37, 43) }
+            QTableWidget {
+                padding: 5px;
+                gridline-color: rgb(44, 49, 58);
+                border-bottom: 1px solid rgb(44, 49, 60); }
+            QTableWidget::item:selected{ background-color: rgb(189, 147, 249) }
+            QHeaderView { qproperty-defaultAlignment: AlignCenter }
+            QHeaderView::section{
+                background-color: rgb(33, 37, 43);
+                border: 1px solid rgb(44, 49, 60);
+                font-size: 15px }
+            """)
+        
+        self._highlighted_rows = set()
+        
         self.ui.getData.clicked.connect(self.run_get_data)
         self.ui.changeNotes.clicked.connect(self.run_change_notes)
         self.ui.reInstall.clicked.connect(self.run_reinstall)
         self.ui.reload.clicked.connect(self.reload)
+        
+        self.ui.table.itemSelectionChanged.connect(self.highlight_selected_row)
         
         save_shortcut = QShortcut(QKeySequence("Ctrl+S"), self)
         save_shortcut.activated.connect(self.save_table_to_file)
@@ -141,6 +160,7 @@ class TableWindow(QMainWindow):
             edit = QLineEdit()
             edit.setPlaceholderText("Filter")
             edit.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            edit.setStyleSheet("background-color: rgb(40, 44, 52);")
             edit.returnPressed.connect(self.filter_table)
             self.ui.table.setCellWidget(0, col, edit)
             self.filter_edits.append(edit)
@@ -164,6 +184,28 @@ class TableWindow(QMainWindow):
                 visible_index += 1
             else:
                 self.ui.table.setRowHidden(row, True)
+                
+    def highlight_selected_row(self):
+        selected_rows = set(idx.row() for idx in self.ui.table.selectedIndexes())
+        
+        # Rows to clear: previously highlighted but not currently selected
+        rows_to_clear = self._highlighted_rows - selected_rows
+        for row in rows_to_clear:
+            for col in range(self.ui.table.columnCount()):
+                item = self.ui.table.item(row, col)
+                if item:
+                    item.setBackground(QColor(40, 44, 52))  # Default bg
+        
+        # Rows to highlight: currently selected but not previously highlighted
+        for row in selected_rows:
+            for col in range(self.ui.table.columnCount()):
+                item = self.ui.table.item(row, col)
+                if item:
+                    item.setBackground(QColor("#313640"))  # Subtle highlight
+                    
+        # Update the cache
+        self._highlighted_rows = selected_rows
+        self.ui.countRows.setText(f"Rows: {len(selected_rows)}")
 
     def addRow(self):
         currentRow = self.ui.table.currentRow()
