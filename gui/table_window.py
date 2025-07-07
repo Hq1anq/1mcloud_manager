@@ -137,13 +137,15 @@ class TableWindow(QMainWindow):
         
         self.ui.statusTable.setText("Copied IPs to clipboard!")
         
-    def update_row(self, row, success, note: str = None, ip_port: str = None):
+    def update_row(self, row: int, success: bool, note: str = None, ip_port: str = None, status: str = None):
         if success:
             self.ui.table.setItem(row, 0, self.table_item("✔️"))
             if note:
                 self.ui.table.setItem(row, 9, self.table_item(note))
             if ip_port:
                 self.ui.table.setItem(row, 2, self.table_item(ip_port))
+            if status:
+                self.ui.table.setItem(row, 7, self.table_item(status))
         else:
             self.ui.table.setItem(row, 0, self.table_item("❌"))
     

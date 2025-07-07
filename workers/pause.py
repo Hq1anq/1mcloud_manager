@@ -7,7 +7,7 @@ from PySide6.QtWidgets import QTableWidget
 class Pause(QRunnable):
     
     class Signals(QObject):
-        change_table = Signal(int, bool, str, str)  # row, success, note, ip_port
+        change_table = Signal(int, bool, str, str, str)  # row, success, note, ip_port, status
         finished_log = Signal(str)
         
     def __init__(self, rows, table):
@@ -15,7 +15,10 @@ class Pause(QRunnable):
         self.rows = rows
         self.table: QTableWidget = table
         self.signals = self.Signals()
-
+    
+    def set_row(self, row: int, success: bool, status: str = None):
+        self.signals.change_table.emit(row, success, None, None, status)
+        
     def run(self):
         list_sids = []
         row_sid_map = {}
@@ -33,9 +36,9 @@ class Pause(QRunnable):
             for sid in list_sids:
                 row = row_sid_map[sid]
                 if sid in success_sids:
-                    self.signals.change_table.emit(row, True, None, None)
+                    self.set_row(row, True, "Paused")
                 else:
-                    self.signals.change_table.emit(row, False, None, None)
+                    self.set_row(row, False, "Pause failed")
             self.signals.finished_log.emit("Pause - DONE!")
         else:
             self.signals.finished_log.emit("Pause - ERROR!")
