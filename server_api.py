@@ -160,6 +160,23 @@ def reinstall(sid: str, custom_info: str = None, type: str = "proxy_https") -> l
         print(f"❌{data['sid']}")
         return None
 
+def pause(sids: str) -> list:
+    url = "https://api.smartserver.vn/api/server/pause"
+    
+    sid_list = ','.join(sids.strip().splitlines())
+
+    data =  {
+        "sid": sid_list
+    }
+
+    response = requests.post(url, headers=headers, json=data)
+    if response.status_code == 200:
+        print(f"✅ Paused")
+        return response.json()
+    else:
+        print(f"❌ Failed to pause: {response.status_code}")
+        return None
+
 if __name__ == "__main__":
     pass
     # reinstall(sid = "564340", custom_info="103.16.224.43:46287:yzjo1765:YFXfjw7609")
