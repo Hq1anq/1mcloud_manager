@@ -280,12 +280,6 @@ QScrollBar::add-line:vertical:pressed, QScrollBar::sub-line:vertical:pressed {
     </item>
     <item row="4" column="0" colspan="2">
      <widget class="QFrame" name="frame">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Expanding">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
 	font: 20px;
@@ -318,10 +312,7 @@ QComboBox { background-color: rgb(33, 37, 43) }</string>
       <property name="frameShadow">
        <enum>QFrame::Shadow::Raised</enum>
       </property>
-      <layout class="QHBoxLayout" name="horizontalLayout_2">
-       <property name="spacing">
-        <number>20</number>
-       </property>
+      <layout class="QHBoxLayout" name="horizontalLayout_3">
        <item>
         <widget class="QPlainTextEdit" name="txtIP">
          <property name="placeholderText">
@@ -330,91 +321,103 @@ QComboBox { background-color: rgb(33, 37, 43) }</string>
         </widget>
        </item>
        <item>
-        <layout class="QGridLayout" name="gridLayout_2">
-         <property name="spacing">
-          <number>10</number>
-         </property>
-         <item row="0" column="0">
-          <widget class="QPushButton" name="getData">
-           <property name="text">
-            <string>GET DATA</string>
-           </property>
-          </widget>
+        <layout class="QVBoxLayout" name="verticalLayout">
+         <item>
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QPushButton" name="getData">
+             <property name="text">
+              <string>GET DATA</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="1">
+            <widget class="QPushButton" name="reload">
+             <property name="maximumSize">
+              <size>
+               <width>43</width>
+               <height>43</height>
+              </size>
+             </property>
+             <property name="icon">
+              <iconset resource="../resources/resources.qrc">
+               <normaloff>:/icons/icons/update.svg</normaloff>:/icons/icons/update.svg</iconset>
+             </property>
+             <property name="iconSize">
+              <size>
+               <width>30</width>
+               <height>30</height>
+              </size>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="2" colspan="2">
+            <widget class="QPushButton" name="changeNotes">
+             <property name="text">
+              <string>CHANGE NOTES</string>
+             </property>
+            </widget>
+           </item>
+           <item row="0" column="4">
+            <widget class="QPushButton" name="reInstall">
+             <property name="text">
+              <string>REINSTALL</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="0" colspan="2">
+            <widget class="QLineEdit" name="txtAmount">
+             <property name="placeholderText">
+              <string>Amount</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="2">
+            <widget class="QLineEdit" name="txtNote"/>
+           </item>
+           <item row="1" column="3">
+            <widget class="QCheckBox" name="replaceCheckbox">
+             <property name="text">
+              <string>Replace?</string>
+             </property>
+            </widget>
+           </item>
+           <item row="1" column="4">
+            <widget class="QLineEdit" name="txtReinstall"/>
+           </item>
+          </layout>
          </item>
-         <item row="0" column="1">
-          <widget class="QPushButton" name="reload">
-           <property name="maximumSize">
-            <size>
-             <width>43</width>
-             <height>43</height>
-            </size>
-           </property>
-           <property name="icon">
-            <iconset resource="../resources/resources.qrc">
-             <normaloff>:/icons/icons/update.svg</normaloff>:/icons/icons/update.svg</iconset>
-           </property>
-           <property name="iconSize">
-            <size>
-             <width>30</width>
-             <height>30</height>
-            </size>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="2" colspan="2">
-          <widget class="QPushButton" name="changeNotes">
-           <property name="text">
-            <string>CHANGE NOTES</string>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="4">
-          <widget class="QPushButton" name="reInstall">
-           <property name="text">
-            <string>REINSTALL</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="0" colspan="2">
-          <widget class="QLineEdit" name="txtAmount">
-           <property name="placeholderText">
-            <string>Amount</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="2">
-          <widget class="QLineEdit" name="txtNote"/>
-         </item>
-         <item row="1" column="3">
-          <widget class="QCheckBox" name="replaceCheckbox">
-           <property name="text">
-            <string>Replace?</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="4">
-          <widget class="QLineEdit" name="txtReinstall"/>
-         </item>
-         <item row="2" column="2" colspan="2">
-          <widget class="QPushButton" name="pause">
-           <property name="text">
-            <string>PAUSE</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="4">
-          <widget class="QPushButton" name="refund">
-           <property name="text">
-            <string>REFUND</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0" colspan="2">
-          <widget class="QPushButton" name="changeIP">
-           <property name="text">
-            <string>CHANGE IP</string>
-           </property>
-          </widget>
+         <item>
+          <layout class="QHBoxLayout" name="horizontalLayout_2">
+           <item>
+            <widget class="QPushButton" name="changeIP">
+             <property name="text">
+              <string>CHANGE IP</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="copyIP">
+             <property name="text">
+              <string>COPY IP</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="pause">
+             <property name="text">
+              <string>PAUSE</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="QPushButton" name="refund">
+             <property name="text">
+              <string>REFUND</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
          </item>
         </layout>
        </item>

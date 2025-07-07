@@ -6,7 +6,7 @@ from PySide6.QtWidgets import QTableWidget
 class ChangeNotes(QRunnable):
     
     class Signals(QObject):
-        change_table = Signal(int, bool, str, str)  # row, success, note
+        change_table = Signal(int, bool, str, str)  # row, success, note, ip_port
         finished_log = Signal(str)
         
     def __init__(self, rows, note, replace, table):

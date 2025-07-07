@@ -59,6 +59,7 @@ class TableWindow(QMainWindow):
         self.ui.changeNotes.clicked.connect(self.run_change_notes)
         self.ui.reInstall.clicked.connect(self.run_reinstall)
         self.ui.reload.clicked.connect(self.reload)
+        self.ui.copyIP.clicked.connect(self.copy_ip)
         
         self.ui.table.itemSelectionChanged.connect(self.highlight_selected_row)
         
@@ -115,6 +116,16 @@ class TableWindow(QMainWindow):
     def save_table_to_file(self):
         self.save_data(DATA_PATH)
         self.show_status("Saved data to: " + DATA_PATH)
+    
+    def copy_ip(self):
+        selected_rows = set(idx.row() for idx in self.ui.table.selectedIndexes())
+        ip_items = [self.ui.table.item(row, 2).text().split(":")[0] for row in selected_rows]
+        
+        if ip_items:
+            copied_text = "\n".join(ip_items)
+            QGuiApplication.clipboard().setText(copied_text)
+        
+        self.ui.statusTable.setText("Copied IPs to clipboard!")
         
     def update_row(self, row, success, note: str = None, ip_port: str = None):
         if success:

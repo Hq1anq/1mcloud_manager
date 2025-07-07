@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'tableijGviZ.ui'
+## Form generated from reading UI file 'tableSFqEpr.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -18,7 +18,7 @@ from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
 from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QGridLayout,
     QHBoxLayout, QHeaderView, QLabel, QLineEdit,
     QMainWindow, QPlainTextEdit, QPushButton, QSizePolicy,
-    QTableWidget, QTableWidgetItem, QWidget)
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 import resources.resources_rc
 
 class Ui_MainWindow(object):
@@ -216,11 +216,6 @@ class Ui_MainWindow(object):
 
         self.frame = QFrame(self.centralwidget)
         self.frame.setObjectName(u"frame")
-        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Preferred, QSizePolicy.Policy.Expanding)
-        sizePolicy2.setHorizontalStretch(0)
-        sizePolicy2.setVerticalStretch(0)
-        sizePolicy2.setHeightForWidth(self.frame.sizePolicy().hasHeightForWidth())
-        self.frame.setSizePolicy(sizePolicy2)
         self.frame.setStyleSheet(u"QPushButton {\n"
 "	font: 20px;\n"
 "	font-weight: bold;\n"
@@ -247,16 +242,16 @@ class Ui_MainWindow(object):
 "QComboBox { background-color: rgb(33, 37, 43) }")
         self.frame.setFrameShape(QFrame.Shape.StyledPanel)
         self.frame.setFrameShadow(QFrame.Shadow.Raised)
-        self.horizontalLayout_2 = QHBoxLayout(self.frame)
-        self.horizontalLayout_2.setSpacing(20)
-        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.horizontalLayout_3 = QHBoxLayout(self.frame)
+        self.horizontalLayout_3.setObjectName(u"horizontalLayout_3")
         self.txtIP = QPlainTextEdit(self.frame)
         self.txtIP.setObjectName(u"txtIP")
 
-        self.horizontalLayout_2.addWidget(self.txtIP)
+        self.horizontalLayout_3.addWidget(self.txtIP)
 
+        self.verticalLayout = QVBoxLayout()
+        self.verticalLayout.setObjectName(u"verticalLayout")
         self.gridLayout_2 = QGridLayout()
-        self.gridLayout_2.setSpacing(10)
         self.gridLayout_2.setObjectName(u"gridLayout_2")
         self.getData = QPushButton(self.frame)
         self.getData.setObjectName(u"getData")
@@ -303,23 +298,36 @@ class Ui_MainWindow(object):
 
         self.gridLayout_2.addWidget(self.txtReinstall, 1, 4, 1, 1)
 
+
+        self.verticalLayout.addLayout(self.gridLayout_2)
+
+        self.horizontalLayout_2 = QHBoxLayout()
+        self.horizontalLayout_2.setObjectName(u"horizontalLayout_2")
+        self.changeIP = QPushButton(self.frame)
+        self.changeIP.setObjectName(u"changeIP")
+
+        self.horizontalLayout_2.addWidget(self.changeIP)
+
+        self.copyIP = QPushButton(self.frame)
+        self.copyIP.setObjectName(u"copyIP")
+
+        self.horizontalLayout_2.addWidget(self.copyIP)
+
         self.pause = QPushButton(self.frame)
         self.pause.setObjectName(u"pause")
 
-        self.gridLayout_2.addWidget(self.pause, 2, 2, 1, 2)
+        self.horizontalLayout_2.addWidget(self.pause)
 
         self.refund = QPushButton(self.frame)
         self.refund.setObjectName(u"refund")
 
-        self.gridLayout_2.addWidget(self.refund, 2, 4, 1, 1)
-
-        self.changeIP = QPushButton(self.frame)
-        self.changeIP.setObjectName(u"changeIP")
-
-        self.gridLayout_2.addWidget(self.changeIP, 2, 0, 1, 2)
+        self.horizontalLayout_2.addWidget(self.refund)
 
 
-        self.horizontalLayout_2.addLayout(self.gridLayout_2)
+        self.verticalLayout.addLayout(self.horizontalLayout_2)
+
+
+        self.horizontalLayout_3.addLayout(self.verticalLayout)
 
 
         self.gridLayout.addWidget(self.frame, 4, 0, 1, 2)
@@ -348,11 +356,11 @@ class Ui_MainWindow(object):
         __qtablewidgetitem9 = QTableWidgetItem()
         self.table.setHorizontalHeaderItem(9, __qtablewidgetitem9)
         self.table.setObjectName(u"table")
-        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
-        sizePolicy3.setHorizontalStretch(0)
-        sizePolicy3.setVerticalStretch(0)
-        sizePolicy3.setHeightForWidth(self.table.sizePolicy().hasHeightForWidth())
-        self.table.setSizePolicy(sizePolicy3)
+        sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
+        sizePolicy2.setHorizontalStretch(0)
+        sizePolicy2.setVerticalStretch(0)
+        sizePolicy2.setHeightForWidth(self.table.sizePolicy().hasHeightForWidth())
+        self.table.setSizePolicy(sizePolicy2)
         self.table.setStyleSheet(u"QTableCornerButton::section { background-color: rgb(33, 37, 43) }\n"
 "QTableWidget {	\n"
 "	padding: 5px;\n"
@@ -385,11 +393,11 @@ class Ui_MainWindow(object):
         self._31.setContentsMargins(0, 0, 0, 0)
         self.credits = QPushButton(self.bottomBar)
         self.credits.setObjectName(u"credits")
-        sizePolicy4 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
-        sizePolicy4.setHorizontalStretch(0)
-        sizePolicy4.setVerticalStretch(0)
-        sizePolicy4.setHeightForWidth(self.credits.sizePolicy().hasHeightForWidth())
-        self.credits.setSizePolicy(sizePolicy4)
+        sizePolicy3 = QSizePolicy(QSizePolicy.Policy.Fixed, QSizePolicy.Policy.Fixed)
+        sizePolicy3.setHorizontalStretch(0)
+        sizePolicy3.setVerticalStretch(0)
+        sizePolicy3.setHeightForWidth(self.credits.sizePolicy().hasHeightForWidth())
+        self.credits.setSizePolicy(sizePolicy3)
 
         self._31.addWidget(self.credits, 0, Qt.AlignmentFlag.AlignLeft)
 
@@ -428,9 +436,10 @@ class Ui_MainWindow(object):
         self.reInstall.setText(QCoreApplication.translate("MainWindow", u"REINSTALL", None))
         self.txtAmount.setPlaceholderText(QCoreApplication.translate("MainWindow", u"Amount", None))
         self.replaceCheckbox.setText(QCoreApplication.translate("MainWindow", u"Replace?", None))
+        self.changeIP.setText(QCoreApplication.translate("MainWindow", u"CHANGE IP", None))
+        self.copyIP.setText(QCoreApplication.translate("MainWindow", u"COPY IP", None))
         self.pause.setText(QCoreApplication.translate("MainWindow", u"PAUSE", None))
         self.refund.setText(QCoreApplication.translate("MainWindow", u"REFUND", None))
-        self.changeIP.setText(QCoreApplication.translate("MainWindow", u"CHANGE IP", None))
         ___qtablewidgetitem = self.table.horizontalHeaderItem(1)
         ___qtablewidgetitem.setText(QCoreApplication.translate("MainWindow", u"SID", None));
         ___qtablewidgetitem1 = self.table.horizontalHeaderItem(2)

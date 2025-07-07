@@ -7,7 +7,7 @@ from PySide6.QtWidgets import QTableWidget
 class Reinstall(QRunnable):
     
     class Signals(QObject):
-        change_table = Signal(int, bool, str, str)  # row, success
+        change_table = Signal(int, bool, str, str)  # row, success, note, ip_port
         finished_log = Signal(str)
         
     def __init__(self, rows, custom_info: str, table):
