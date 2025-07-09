@@ -176,6 +176,40 @@ def pause(sids: str) -> list:
     else:
         print(f"❌ Failed to pause: {response.status_code}")
         return None
+    
+def changeip(ip: str, custom_info: str = None, type: str = "proxy_https") -> list:
+    url = "https://api.smartserver.vn/api/server/change-ip"
+
+    if custom_info is not None:
+        list_info = custom_info.split(":")
+        data =  {
+            "ip": ip,
+            "os_id": 0,
+            "proxy_type": type,
+            "range_ip": "Ngẫu nhiên",
+            "random_password": list_info[3],
+            "random_remote_port": list_info[1],
+            "isp": "Ngẫu nhiên"
+        }
+    else:
+        data =  {
+            "ip": ip,
+            "os_id": 0,
+            "proxy_type": type,
+            "range_ip": "Ngẫu nhiên",
+            "random_password": True,
+            "random_remote_port": True,
+            "isp": "Ngẫu nhiên"
+        }
+    
+    response = requests.post(url, headers=headers, json=data)
+    if response.status_code == 200:
+        raw_data = response.json()
+        proxy_info = [raw_data['new_ip'], raw_data['remote_port'], raw_data['username'], raw_data['password']]
+        return proxy_info
+    else:
+        print(f"❌ Failed to change IP: {response.status_code}")
+        return None
 
 if __name__ == "__main__":
     pass
