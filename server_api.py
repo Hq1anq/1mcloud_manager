@@ -184,11 +184,12 @@ def changeip(ip: str, custom_info: str = None, type: str = "proxy_https") -> lis
         list_info = custom_info.split(":")
         data =  {
             "ip": ip,
-            "os_id": 0,
             "proxy_type": type,
-            "range_ip": "Ngẫu nhiên",
-            "random_password": list_info[3],
-            "random_remote_port": list_info[1],
+            "range_ip": list_info[0],
+            "random_password": False,
+            "random_remote_port": False,
+            "password": list_info[3],
+            "remote_port": int(list_info[1]),
             "isp": "Ngẫu nhiên"
         }
     else:
@@ -212,6 +213,9 @@ def changeip(ip: str, custom_info: str = None, type: str = "proxy_https") -> lis
         return None
 
 if __name__ == "__main__":
+    # proxy_info = changeip("113.192.8.175", "103.10.69.179:26839:qyge1728:NKIcht0926")
+    proxy_info = reinstall(sid="550706", custom_info="103.10.69.179:26839:qyge1728:NKIcht0926")
+    print(f"{proxy_info[0]}:{proxy_info[1]}:{proxy_info[2]}:{proxy_info[3]}")
     pass
     # reinstall(sid = "564340", custom_info="103.16.224.43:46287:yzjo1765:YFXfjw7609")
     # ips = pyperclip.paste()

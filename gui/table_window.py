@@ -150,7 +150,7 @@ class TableWindow(QMainWindow):
         
         self.ui.statusTable.setText("Copied IPs to clipboard!")
         
-    def update_row(self, row: int, success: bool, note: str = None, ip_port: str = None, status: str = None):
+    def update_row(self, row: int, success: bool, note: str = None, ip_port: str = None, status: str = None, change_ip: bool = None):
         if success:
             self.ui.table.setItem(row, 0, self.table_item("✔️"))
             if note:
@@ -159,6 +159,9 @@ class TableWindow(QMainWindow):
                 self.ui.table.setItem(row, 2, self.table_item(ip_port))
             if status:
                 self.ui.table.setItem(row, 7, self.table_item(status))
+            if change_ip:
+                count_changeip = int(self.ui.table.item(row, 8).text()) + 1
+                self.ui.table.setItem(row, 8, self.table_item(str(count_changeip)))
         else:
             self.ui.table.setItem(row, 0, self.table_item("❌"))
     
