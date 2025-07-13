@@ -4,7 +4,7 @@ from PySide6.QtGui import QShortcut, QKeySequence, QGuiApplication, QColor
 
 import json
 import server_api
-from workers import ChangeNotes, Reinstall, Pause, ChangeIP
+from workers import ChangeNotes, Reinstall, Pause, ChangeIP, Refund
 
 from gui.ui_table import Ui_MainWindow
 from gui.window_control import WindowController
@@ -59,6 +59,7 @@ class TableWindow(QMainWindow):
         self.ui.changeNotes.clicked.connect(self.run_change_notes)
         self.ui.reInstall.clicked.connect(self.run_reinstall)
         self.ui.pause.clicked.connect(self.run_pause)
+        self.ui.refund.clicked.connect(self.run_refund)
         self.ui.changeIP.clicked.connect(self.run_changeip)
         self.ui.reload.clicked.connect(self.reload)
         self.ui.copyIP.clicked.connect(self.copy_ip)
@@ -116,6 +117,15 @@ class TableWindow(QMainWindow):
         selected_rows = set(item.row() for item in self.ui.table.selectedItems())
         
         worker = Pause(list(selected_rows), self.ui.table)
+        worker.signals.change_table.connect(self.update_row)
+        worker.signals.finished_log.connect(self.show_status)
+        
+        QThreadPool.globalInstance().start(worker)
+    
+    def run_refund(self):
+        selected_rows = set(item.row() for item in self.ui.table.selectedItems())
+        
+        worker = Refund(list(selected_rows), self.ui.table)
         worker.signals.change_table.connect(self.update_row)
         worker.signals.finished_log.connect(self.show_status)
         

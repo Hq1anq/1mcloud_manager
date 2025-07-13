@@ -212,6 +212,24 @@ def changeip(ip: str, custom_info: str = None, type: str = "proxy_https") -> lis
         print(f"❌ Failed to change IP: {response.status_code}")
         return None
 
+def refund(sids: str):
+    url = "https://api.smartserver.vn/api/server/refund"
+    
+    sid_list = [sid.strip() for sid in sids.strip().splitlines() if sid.strip()]
+    sid_string = ",".join(sid_list)
+    
+    data = {
+        "sid": sid_string
+    }
+    
+    response = requests.post(url, headers=headers, json=data)
+    if response.status_code == 200:
+        print(f"✅ Refund")
+        return response.json()
+    else:
+        print(f"❌ Refund {response.status_code}")
+        return None
+
 if __name__ == "__main__":
     # proxy_info = changeip("113.192.8.175", "103.10.69.179:26839:qyge1728:NKIcht0926")
     proxy_info = reinstall(sid="550706", custom_info="103.10.69.179:26839:qyge1728:NKIcht0926")
