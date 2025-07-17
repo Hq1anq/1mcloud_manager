@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'tableSFqEpr.ui'
+## Form generated from reading UI file 'tableJPrRbk.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
@@ -231,7 +231,7 @@ class Ui_MainWindow(object):
 "	border-radius: 5px;\n"
 "	border: 2px solid rgb(33, 37, 43);\n"
 "	padding-left: 3px;\n"
-"	selection-color: rgb(255, 255, 255);\n"
+"	selection-color: rgb(40, 44, 52); /* text color when selected */\n"
 "	selection-background-color: rgb(255, 121, 198) }\n"
 "QLineEdit:hover, QTextEdit:hover, QPlainTextEdit:hover { border: 2px solid rgb(64, 71, 88) }\n"
 "QLineEdit:focus,  QTextEdit:focus, QPlainTextEdit:hover { border: 2px solid rgb(91, 101, 124) }\n"
@@ -351,6 +351,10 @@ class Ui_MainWindow(object):
         self.table.setHorizontalHeaderItem(8, __qtablewidgetitem8)
         __qtablewidgetitem9 = QTableWidgetItem()
         self.table.setHorizontalHeaderItem(9, __qtablewidgetitem9)
+        if (self.table.rowCount() < 1):
+            self.table.setRowCount(1)
+        __qtablewidgetitem10 = QTableWidgetItem()
+        self.table.setVerticalHeaderItem(0, __qtablewidgetitem10)
         self.table.setObjectName(u"table")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy2.setHorizontalStretch(0)
@@ -363,12 +367,20 @@ class Ui_MainWindow(object):
 "	gridline-color: rgb(44, 49, 58);\n"
 "	border-bottom: 1px solid rgb(44, 49, 60); }\n"
 "QTableWidget::item{ border-color: rgb(44, 49, 60) }\n"
-"QTableWidget::item:selected{ background-color: rgb(189, 147, 249) }\n"
+"QTableWidget::item:selected{\n"
+"	background-color: rgb(189, 147, 249);\n"
+"	color: rgb(40, 44, 52);\n"
+"}\n"
 "QHeaderView { qproperty-defaultAlignment: AlignCenter }\n"
 "QHeaderView::section{\n"
 "	background-color: rgb(33, 37, 43);\n"
 "	border: 1px solid rgb(44, 49, 60);\n"
-"	font-size: 15px }")
+"	font-size: 15px }\n"
+"QLineEdit {\n"
+"    background-color: rgb(50, 54, 62); /* slightly lighter/darker variant for edit mode */\n"
+"	selection-background-color: rgb(189, 147, 249); /* background when highlight */\n"
+"    selection-color: rgb(40, 44, 52);; /* text color when selected */\n"
+"}")
 
         self.gridLayout.addWidget(self.table, 7, 0, 1, 2)
 
@@ -454,6 +466,8 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"CHANGED_IP", None));
         ___qtablewidgetitem8 = self.table.horizontalHeaderItem(9)
         ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"NOTE", None));
+        ___qtablewidgetitem9 = self.table.verticalHeaderItem(0)
+        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
         self.credits.setText(QCoreApplication.translate("MainWindow", u"  \u00a9 cre: h0anq.qianq", None))
         self.countRows.setText("")
     # retranslateUi

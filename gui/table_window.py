@@ -1,6 +1,6 @@
 from PySide6.QtWidgets import QMainWindow, QSizeGrip, QTableWidgetItem, QHeaderView, QLineEdit
 from PySide6.QtCore import Qt, QThreadPool
-from PySide6.QtGui import QShortcut, QKeySequence, QGuiApplication, QColor
+from PySide6.QtGui import QShortcut, QKeySequence, QGuiApplication, QColor, QKeyEvent
 
 import json
 import server_api
@@ -45,12 +45,20 @@ class TableWindow(QMainWindow):
                 padding: 5px;
                 gridline-color: rgb(44, 49, 58);
                 border-bottom: 1px solid rgb(44, 49, 60); }
-            QTableWidget::item:selected{ background-color: rgb(189, 147, 249) }
+            QTableWidget::item:selected{
+                background-color: rgb(189, 147, 249);
+                color: rgb(40, 44, 52);
+            }
             QHeaderView { qproperty-defaultAlignment: AlignCenter }
-            QHeaderView::section{
+            QHeaderView::section {
                 background-color: rgb(33, 37, 43);
                 border: 1px solid rgb(44, 49, 60);
                 font-size: 15px }
+            QLineEdit {
+                background-color: rgb(50, 54, 62); /* slightly lighter/darker variant for edit mode */
+                selection-background-color: rgb(189, 147, 249); /* background when highlight */
+                selection-color: rgb(40, 44, 52);; /* text color when selected */
+            }
             """)
         
         self._highlighted_rows = set()
@@ -233,9 +241,10 @@ class TableWindow(QMainWindow):
                 visible_index += 1
             else:
                 self.ui.table.setRowHidden(row, True)
+        self.adjust_column_width()
                 
     def highlight_selected_row(self):
-        selected_rows = set(idx.row() for idx in self.ui.table.selectedIndexes())
+        selected_rows = set(idx.row() for idx in self.ui.table.selectedIndexes() if idx.row() > 0)
         
         # Rows to clear: previously highlighted but not currently selected
         rows_to_clear = self._highlighted_rows - selected_rows
@@ -287,8 +296,8 @@ class TableWindow(QMainWindow):
         item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
         return item
             
-    def keyPressEvent(self, event):
-        if event.matches(QKeySequence.Copy):
+    def keyPressEvent(self, event: QKeyEvent):
+        if event.matches(QKeySequence.StandardKey.Copy):
             self.copy_selected_cells()
         else:
             super().keyPressEvent(event)

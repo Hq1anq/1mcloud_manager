@@ -300,7 +300,7 @@ QLineEdit, QTextEdit, QPlainTextEdit {
 	border-radius: 5px;
 	border: 2px solid rgb(33, 37, 43);
 	padding-left: 3px;
-	selection-color: rgb(255, 255, 255);
+	selection-color: rgb(40, 44, 52);; /* text color when selected */
 	selection-background-color: rgb(255, 121, 198) }
 QLineEdit:hover, QTextEdit:hover, QPlainTextEdit:hover { border: 2px solid rgb(64, 71, 88) }
 QLineEdit:focus,  QTextEdit:focus, QPlainTextEdit:hover { border: 2px solid rgb(91, 101, 124) }
@@ -439,13 +439,26 @@ QTableWidget {
 	gridline-color: rgb(44, 49, 58);
 	border-bottom: 1px solid rgb(44, 49, 60); }
 QTableWidget::item{ border-color: rgb(44, 49, 60) }
-QTableWidget::item:selected{ background-color: rgb(189, 147, 249) }
+QTableWidget::item:selected{
+	background-color: rgb(189, 147, 249);
+	color: rgb(40, 44, 52);
+}
 QHeaderView { qproperty-defaultAlignment: AlignCenter }
 QHeaderView::section{
 	background-color: rgb(33, 37, 43);
 	border: 1px solid rgb(44, 49, 60);
-	font-size: 15px }</string>
+	font-size: 15px }
+QLineEdit {
+    background-color: rgb(50, 54, 62); /* slightly lighter/darker variant for edit mode */
+	selection-background-color: rgb(189, 147, 249); /* background when highlight */
+    selection-color: rgb(40, 44, 52);; /* text color when selected */
+}</string>
       </property>
+      <row>
+       <property name="text">
+        <string>New Row</string>
+       </property>
+      </row>
       <column>
        <property name="text">
         <string/>
