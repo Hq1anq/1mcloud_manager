@@ -216,7 +216,7 @@ class TableWindow(QMainWindow):
         for col in range(1, self.ui.table.columnCount()):
             edit = QLineEdit()
             edit.setPlaceholderText("Filter")
-            edit.setAlignment(Qt.AlignmentFlag.AlignCenter)
+            edit.setAlignment(Qt.AlignmentFlag.AlignCenter if col != 9 else Qt.AlignmentFlag.AlignLeft)
             edit.setStyleSheet("background-color: rgb(40, 44, 52);")
             edit.returnPressed.connect(self.filter_table)
             self.ui.table.setCellWidget(0, col, edit)
@@ -224,6 +224,7 @@ class TableWindow(QMainWindow):
     
     def filter_table(self):
         visible_index = 1
+        header_labels = [""]  # For filter row
         for row in range(1, self.ui.table.rowCount()):  # Skip filter row
             show_row = True
             for col, edit in enumerate(self.filter_edits, start=1):
@@ -236,11 +237,13 @@ class TableWindow(QMainWindow):
             # Show/hide row and update row counter
             if show_row:
                 self.ui.table.setRowHidden(row, False)
-                item = self.ui.table.item(row, 0)
-                item.setText(str(visible_index))
+                header_labels.append(str(visible_index))
                 visible_index += 1
             else:
                 self.ui.table.setRowHidden(row, True)
+                header_labels.append("")
+                
+        self.ui.table.setVerticalHeaderLabels(header_labels)
         self.adjust_column_width()
                 
     def highlight_selected_row(self):
@@ -337,8 +340,12 @@ class TableWindow(QMainWindow):
             items.insert(0, QTableWidgetItem(""))  # Adjust if you use icons
 
             for col, item in enumerate(items):
-                item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+                item.setTextAlignment(Qt.AlignmentFlag.AlignCenter if col != 9 else Qt.AlignmentFlag.AlignLeft)
                 self.ui.table.setItem(row, col, item)
+        
+        # Show row numbers starting from 1 for data rows
+        headers = [""] + [str(i) for i in range(1, len(data) + 1)]
+        self.ui.table.setVerticalHeaderLabels(headers)
         self.adjust_column_width()
     
     def save_data(self, file_path: str):

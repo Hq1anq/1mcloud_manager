@@ -351,10 +351,6 @@ class Ui_MainWindow(object):
         self.table.setHorizontalHeaderItem(8, __qtablewidgetitem8)
         __qtablewidgetitem9 = QTableWidgetItem()
         self.table.setHorizontalHeaderItem(9, __qtablewidgetitem9)
-        if (self.table.rowCount() < 1):
-            self.table.setRowCount(1)
-        __qtablewidgetitem10 = QTableWidgetItem()
-        self.table.setVerticalHeaderItem(0, __qtablewidgetitem10)
         self.table.setObjectName(u"table")
         sizePolicy2 = QSizePolicy(QSizePolicy.Policy.Expanding, QSizePolicy.Policy.Expanding)
         sizePolicy2.setHorizontalStretch(0)
@@ -466,9 +462,6 @@ class Ui_MainWindow(object):
         ___qtablewidgetitem7.setText(QCoreApplication.translate("MainWindow", u"CHANGED_IP", None));
         ___qtablewidgetitem8 = self.table.horizontalHeaderItem(9)
         ___qtablewidgetitem8.setText(QCoreApplication.translate("MainWindow", u"NOTE", None));
-        ___qtablewidgetitem9 = self.table.verticalHeaderItem(0)
-        ___qtablewidgetitem9.setText(QCoreApplication.translate("MainWindow", u"New Row", None));
         self.credits.setText(QCoreApplication.translate("MainWindow", u"  \u00a9 cre: h0anq.qianq", None))
         self.countRows.setText("")
     # retranslateUi
-
