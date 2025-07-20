@@ -85,13 +85,9 @@ class TableWindow(QMainWindow):
         
     def run_get_data(self):
         ips = self.ui.txtIP.toPlainText()
-        if ips != "":
-            data = server_api.get_data_from_ip(ips)
-            self.load_data2table(data)
-        else:
-            amount = self.ui.txtAmount.text()
-            if amount != "":
-                data = server_api.get_data_from_amount(int(amount))
+        amount = self.ui.txtAmount.text()
+        data = server_api.get_data(ips, amount)
+        self.load_data2table(data)
         if data is None:
             self.ui.statusTable.setText("Get Data - FAILED!")
             return
