@@ -454,6 +454,9 @@ QLineEdit {
     selection-color: rgb(40, 44, 52); /* text color when selected */
 }</string>
       </property>
+      <property name="wordWrap">
+       <bool>false</bool>
+      </property>
       <column>
        <property name="text">
         <string/>

@@ -187,10 +187,9 @@ def refund(sids: str):
         return None
 
 if __name__ == "__main__":
-    # proxy_info = changeip("113.192.8.175", "103.10.69.179:26839:qyge1728:NKIcht0926")
-    proxy_info = reinstall(sid="550706", custom_info="103.10.69.179:26839:qyge1728:NKIcht0926")
+    # proxy_info = changeip("103.190.107.66", "160.22.158.192:34161:kxiw8149:AZHhnz4052")
+    proxy_info = reinstall(sid="583453", custom_info="160.22.158.192:34161:kxiw8149:AZHhnz4052")
     print(f"{proxy_info[0]}:{proxy_info[1]}:{proxy_info[2]}:{proxy_info[3]}")
-    pass
     # reinstall(sid = "564340", custom_info="103.16.224.43:46287:yzjo1765:YFXfjw7609")
     # ips = pyperclip.paste()
     # get_data_from_ip(ips)

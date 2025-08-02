@@ -62,6 +62,7 @@ class TableWindow(QMainWindow):
             """)
         
         self._highlighted_rows = set()
+        self.visible_index = None
         
         self.ui.getData.clicked.connect(self.run_get_data)
         self.ui.changeNotes.clicked.connect(self.run_change_notes)
@@ -147,6 +148,7 @@ class TableWindow(QMainWindow):
     def reload(self):
         '''Load json file to table widget'''
         self.load_data(DATA_PATH)
+        self.adjust_column_width()
         self.load_data2table(self.data)
         
     # Add this method to your class:
@@ -219,7 +221,7 @@ class TableWindow(QMainWindow):
             self.filter_edits.append(edit)
     
     def filter_table(self):
-        visible_index = 1
+        self.visible_index = 1
         header_labels = [""]  # For filter row
         for row in range(1, self.ui.table.rowCount()):  # Skip filter row
             show_row = True
@@ -233,14 +235,15 @@ class TableWindow(QMainWindow):
             # Show/hide row and update row counter
             if show_row:
                 self.ui.table.setRowHidden(row, False)
-                header_labels.append(str(visible_index))
-                visible_index += 1
+                header_labels.append(str(self.visible_index))
+                self.visible_index += 1
             else:
                 self.ui.table.setRowHidden(row, True)
                 header_labels.append("")
                 
         self.ui.table.setVerticalHeaderLabels(header_labels)
         self.adjust_column_width()
+        self.ui.countRows.setText(f"Selected: {len(set(idx.row() for idx in self.ui.table.selectedIndexes() if idx.row() > 0))}    Total rows: {self.visible_index if self.visible_index else self.ui.table.rowCount()}")
                 
     def highlight_selected_row(self):
         selected_rows = set(idx.row() for idx in self.ui.table.selectedIndexes() if idx.row() > 0)
@@ -262,7 +265,7 @@ class TableWindow(QMainWindow):
                     
         # Update the cache
         self._highlighted_rows = selected_rows
-        self.ui.countRows.setText(f"Rows: {len(selected_rows)}")
+        self.ui.countRows.setText(f"Selected: {len(selected_rows)}    Total rows: {self.visible_index if self.visible_index else self.ui.table.rowCount()}")
 
     def addRow(self):
         currentRow = self.ui.table.currentRow()
@@ -322,21 +325,22 @@ class TableWindow(QMainWindow):
         self.ui.table.setRowCount(len(data) + 1)  # Set number of rows
         for row, server in enumerate(data, start=1):
             items = [
-                QTableWidgetItem(str(server.get("server_id", ""))),
-                QTableWidgetItem(server.get("ip_port", "")),
-                QTableWidgetItem(server.get("country", "")),
-                QTableWidgetItem(server.get("plan_number", "")),
-                QTableWidgetItem(server.get("ngay_mua", "")),
-                QTableWidgetItem(server.get("het_han", "")),
-                QTableWidgetItem(server.get("trang_thai", "")),
-                QTableWidgetItem(str(server.get("changed_ip", ""))),
-                QTableWidgetItem(server.get("note", "")),
+                self.table_item(str(server.get("server_id", ""))),
+                self.table_item(server.get("ip_port", "")),
+                self.table_item(server.get("country", "")),
+                self.table_item(server.get("plan_number", "")),
+                self.table_item(server.get("ngay_mua", "")),
+                self.table_item(server.get("het_han", "")),
+                self.table_item(server.get("trang_thai", "")),
+                self.table_item(str(server.get("changed_ip", ""))),
+                self.table_item(server.get("note", "")),
             ]
             # Insert blank or icon for first column if needed
             items.insert(0, QTableWidgetItem(""))  # Adjust if you use icons
 
             for col, item in enumerate(items):
-                item.setTextAlignment(Qt.AlignmentFlag.AlignCenter if col != 9 else Qt.AlignmentFlag.AlignLeft)
+                if (col == 9):
+                    item.setTextAlignment(Qt.AlignmentFlag.AlignLeft)
                 self.ui.table.setItem(row, col, item)
         
         # Show row numbers starting from 1 for data rows

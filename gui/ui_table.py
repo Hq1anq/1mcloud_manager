@@ -1,20 +1,24 @@
 # -*- coding: utf-8 -*-
 
 ################################################################################
-## Form generated from reading UI file 'tableJPrRbk.ui'
+## Form generated from reading UI file 'tableVudSdU.ui'
 ##
 ## Created by: Qt User Interface Compiler version 6.8.2
 ##
 ## WARNING! All changes made in this file will be lost when recompiling UI file!
 ################################################################################
 
-from PySide6.QtCore import QCoreApplication, QMetaObject, QSize, Qt
-from PySide6.QtGui import QCursor, QFont, QIcon, QPixmap
-from PySide6.QtWidgets import (QCheckBox, QFrame, QGridLayout, QHBoxLayout, QLabel,
-                               QLineEdit, QPlainTextEdit, QPushButton, QSizePolicy,
-                               QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
-from gui.highlight_widget import HighlightLabel
-
+from PySide6.QtCore import (QCoreApplication, QDate, QDateTime, QLocale,
+    QMetaObject, QObject, QPoint, QRect,
+    QSize, QTime, QUrl, Qt)
+from PySide6.QtGui import (QBrush, QColor, QConicalGradient, QCursor,
+    QFont, QFontDatabase, QGradient, QIcon,
+    QImage, QKeySequence, QLinearGradient, QPainter,
+    QPalette, QPixmap, QRadialGradient, QTransform)
+from PySide6.QtWidgets import (QApplication, QCheckBox, QFrame, QGridLayout,
+    QHBoxLayout, QHeaderView, QLabel, QLineEdit,
+    QMainWindow, QPlainTextEdit, QPushButton, QSizePolicy,
+    QTableWidget, QTableWidgetItem, QVBoxLayout, QWidget)
 import resources.resources_rc
 
 class Ui_MainWindow(object):
@@ -231,7 +235,7 @@ class Ui_MainWindow(object):
 "	border-radius: 5px;\n"
 "	border: 2px solid rgb(33, 37, 43);\n"
 "	padding-left: 3px;\n"
-"	selection-color: rgb(40, 44, 52); /* text color when selected */\n"
+"	selection-color: rgb(40, 44, 52);; /* text color when selected */\n"
 "	selection-background-color: rgb(255, 121, 198) }\n"
 "QLineEdit:hover, QTextEdit:hover, QPlainTextEdit:hover { border: 2px solid rgb(64, 71, 88) }\n"
 "QLineEdit:focus,  QTextEdit:focus, QPlainTextEdit:hover { border: 2px solid rgb(91, 101, 124) }\n"
@@ -375,12 +379,13 @@ class Ui_MainWindow(object):
 "QLineEdit {\n"
 "    background-color: rgb(50, 54, 62); /* slightly lighter/darker variant for edit mode */\n"
 "	selection-background-color: rgb(189, 147, 249); /* background when highlight */\n"
-"    selection-color: rgb(40, 44, 52);; /* text color when selected */\n"
+"    selection-color: rgb(40, 44, 52); /* text color when selected */\n"
 "}")
+        self.table.setWordWrap(False)
 
         self.gridLayout.addWidget(self.table, 7, 0, 1, 2)
 
-        self.statusTable = HighlightLabel(self.centralwidget)
+        self.statusTable = QLabel(self.centralwidget)
         self.statusTable.setObjectName(u"statusTable")
         self.statusTable.setAlignment(Qt.AlignmentFlag.AlignCenter)
 
@@ -465,3 +470,4 @@ class Ui_MainWindow(object):
         self.credits.setText(QCoreApplication.translate("MainWindow", u"  \u00a9 cre: h0anq.qianq", None))
         self.countRows.setText("")
     # retranslateUi
+
