@@ -1,4 +1,4 @@
-from PySide6.QtWidgets import QMainWindow, QSizeGrip, QTableWidgetItem, QHeaderView, QLineEdit
+from PySide6.QtWidgets import QMainWindow, QSizeGrip, QTableWidgetItem, QHeaderView, QLineEdit, QLabel, QWidget, QHBoxLayout
 from PySide6.QtCore import Qt, QThreadPool
 from PySide6.QtGui import QShortcut, QKeySequence, QGuiApplication, QColor, QKeyEvent
 
@@ -210,6 +210,7 @@ class TableWindow(QMainWindow):
     
     def setup_filter_row(self):
         self.ui.table.setRowCount(1)  # Ensure at least one row for filters
+        self.ui.table.setVerticalHeaderItem(0, QTableWidgetItem("")) # Filter row not have header label
         self.filter_edits = []
         for col in range(1, self.ui.table.columnCount()):
             edit = QLineEdit()
@@ -293,10 +294,47 @@ class TableWindow(QMainWindow):
                 self.ui.table.setItem(row_index, col, item)
             self.ui.table.setCurrentCell(row_index, 0)
     
-    def table_item(self, text: str):
+    def table_item(self, text: str, align: str = "left"):
         item = QTableWidgetItem(text)
-        item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
+        if align == "left":
+            item.setTextAlignment(Qt.AlignmentFlag.AlignLeft)
+        if align == "center":
+            item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
         return item
+
+    def status_chip(self, status: str) -> QWidget:
+        label = QLabel()
+        status_lower = status.lower()
+
+        status_styles = {
+            "running": "background-color: #16a34a; color: white;",  # green-600
+            "paused": "background-color: #eab308; color: black;",   # yellow-500
+            "stopped": "background-color: #eab308; color: black;",  # yellow-500
+            "off": "background-color: #dc2626; color: white;",      # red-600
+            "inactive": "background-color: #dc2626; color: white;", # red-600
+            "unknow": "background-color: #6b7280; color: white;"    # gray-500
+        }
+
+        chip_style = f"""
+            border-radius: 8px;
+            padding: 2px 8px;
+            font-size: 11px;
+            font-weight: 600;
+            {status_styles.get(status_lower, status_styles['unknow'])}
+        """
+
+        label.setText(status)
+        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        label.setStyleSheet(chip_style)
+
+        container = QWidget()
+        layout = QHBoxLayout()
+        layout.addWidget(label)
+        layout.setContentsMargins(0, 0, 0, 0)
+        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
+        container.setLayout(layout)
+
+        return container
             
     def keyPressEvent(self, event: QKeyEvent):
         if event.matches(QKeySequence.StandardKey.Copy):
@@ -324,25 +362,20 @@ class TableWindow(QMainWindow):
     def load_data2table(self, data: list[dict]):
         self.ui.table.setRowCount(len(data) + 1)  # Set number of rows
         for row, server in enumerate(data, start=1):
-            items = [
-                self.table_item(str(server.get("server_id", ""))),
-                self.table_item(server.get("ip_port", "")),
-                self.table_item(server.get("country", "")),
-                self.table_item(server.get("plan_number", "")),
-                self.table_item(server.get("ngay_mua", "")),
-                self.table_item(server.get("het_han", "")),
-                self.table_item(server.get("trang_thai", "")),
-                self.table_item(str(server.get("changed_ip", ""))),
-                self.table_item(server.get("note", "")),
-            ]
-            # Insert blank or icon for first column if needed
-            items.insert(0, QTableWidgetItem(""))  # Adjust if you use icons
-
-            for col, item in enumerate(items):
-                if (col == 9):
-                    item.setTextAlignment(Qt.AlignmentFlag.AlignLeft)
-                self.ui.table.setItem(row, col, item)
-        
+            self.ui.table.setItem(row, 0, QTableWidgetItem("")) # icon column
+            self.ui.table.setItem(row, 1, self.table_item(str(server.get("server_id", "")), "center"))
+            self.ui.table.setItem(row, 2, self.table_item(server.get("ip_port", "")))
+            self.ui.table.setItem(row, 3, self.table_item(server.get("country", ""), "center"))
+            self.ui.table.setItem(row, 4, self.table_item(server.get("plan_number", ""), "center"))
+            self.ui.table.setItem(row, 5, self.table_item(server.get("ngay_mua", ""), "center"))
+            self.ui.table.setItem(row, 6, self.table_item(server.get("het_han", ""), "center"))
+            status = server.get("trang_thai", "")
+            if status:
+                self.ui.table.setCellWidget(row, 7, self.status_chip(status))
+            else:
+                self.ui.table.setItem(row, 7, self.table_item(""))
+            self.ui.table.setItem(row, 8, self.table_item(str(server.get("changed_ip", "")), "center"))
+            self.ui.table.setItem(row, 9, self.table_item(server.get("note", "")))
         # Show row numbers starting from 1 for data rows
         headers = [""] + [str(i) for i in range(1, len(data) + 1)]
         self.ui.table.setVerticalHeaderLabels(headers)
