@@ -1,6 +1,6 @@
-from PySide6.QtWidgets import QMainWindow, QSizeGrip, QTableWidgetItem, QHeaderView, QLineEdit, QLabel, QWidget, QHBoxLayout
-from PySide6.QtCore import Qt, QThreadPool
-from PySide6.QtGui import QShortcut, QKeySequence, QGuiApplication, QColor, QKeyEvent
+from PySide6.QtWidgets import QMainWindow, QSizeGrip, QTableWidgetItem, QHeaderView, QLineEdit, QLabel, QWidget, QHBoxLayout, QStyledItemDelegate, QStyleOptionViewItem
+from PySide6.QtCore import Qt, QThreadPool, QModelIndex, QRect
+from PySide6.QtGui import QShortcut, QKeySequence, QGuiApplication, QColor, QKeyEvent, QPainter, QFont, QFontMetrics
 
 import json
 import server_api
@@ -61,6 +61,8 @@ class TableWindow(QMainWindow):
             }
             """)
         
+        self.ui.table.setItemDelegateForColumn(7, StatusChipDelegate())
+        
         self._highlighted_rows = set()
         self.visible_index = None
         
@@ -77,8 +79,6 @@ class TableWindow(QMainWindow):
         
         save_shortcut = QShortcut(QKeySequence("Ctrl+S"), self)
         save_shortcut.activated.connect(self.save_table_to_file)
-        undo_shortcut = QShortcut(QKeySequence("Ctrl+Z"), self)
-        undo_shortcut.activated.connect(self.undoDelete)
         
         self.show()
         
@@ -271,28 +271,6 @@ class TableWindow(QMainWindow):
     def addRow(self):
         currentRow = self.ui.table.currentRow()
         self.ui.table.insertRow(currentRow + 1)
-        
-    def deleteRow(self):
-        if self.ui.table.rowCount() > 0:
-            selectedRows = sorted(set(index.row() for index in self.ui.table.selectedIndexes()), reverse=True)
-            for currentRow in selectedRows:
-                row_data = [self.ui.table.item(currentRow, col).text() if self.ui.table.item(currentRow, col)
-                            else '' for col in range(self.ui.table.columnCount())]
-                self.deleted_rows.append((currentRow, row_data))
-                self.ui.table.removeRow(currentRow)
-            if len(selectedRows) == 0:
-                self.ui.table.setCurrentCell(0, 0)
-            else:
-                self.ui.table.setCurrentCell(currentRow, 0)
-
-    def undoDelete(self):
-        if self.deleted_rows:
-            row_index, row_data = self.deleted_rows.pop()
-            self.ui.table.insertRow(row_index)
-            for col, data in enumerate(row_data):
-                item = QTableWidgetItem(data)
-                self.ui.table.setItem(row_index, col, item)
-            self.ui.table.setCurrentCell(row_index, 0)
     
     def table_item(self, text: str, align: str = "left"):
         item = QTableWidgetItem(text)
@@ -301,40 +279,6 @@ class TableWindow(QMainWindow):
         if align == "center":
             item.setTextAlignment(Qt.AlignmentFlag.AlignCenter)
         return item
-
-    def status_chip(self, status: str) -> QWidget:
-        label = QLabel()
-        status_lower = status.lower()
-
-        status_styles = {
-            "running": "background-color: #16a34a; color: white;",  # green-600
-            "paused": "background-color: #eab308; color: black;",   # yellow-500
-            "stopped": "background-color: #eab308; color: black;",  # yellow-500
-            "off": "background-color: #dc2626; color: white;",      # red-600
-            "inactive": "background-color: #dc2626; color: white;", # red-600
-            "unknow": "background-color: #6b7280; color: white;"    # gray-500
-        }
-
-        chip_style = f"""
-            border-radius: 8px;
-            padding: 2px 8px;
-            font-size: 11px;
-            font-weight: 600;
-            {status_styles.get(status_lower, status_styles['unknow'])}
-        """
-
-        label.setText(status)
-        label.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        label.setStyleSheet(chip_style)
-
-        container = QWidget()
-        layout = QHBoxLayout()
-        layout.addWidget(label)
-        layout.setContentsMargins(0, 0, 0, 0)
-        layout.setAlignment(Qt.AlignmentFlag.AlignCenter)
-        container.setLayout(layout)
-
-        return container
             
     def keyPressEvent(self, event: QKeyEvent):
         if event.matches(QKeySequence.StandardKey.Copy):
@@ -369,11 +313,7 @@ class TableWindow(QMainWindow):
             self.ui.table.setItem(row, 4, self.table_item(server.get("plan_number", ""), "center"))
             self.ui.table.setItem(row, 5, self.table_item(server.get("ngay_mua", ""), "center"))
             self.ui.table.setItem(row, 6, self.table_item(server.get("het_han", ""), "center"))
-            status = server.get("trang_thai", "")
-            if status:
-                self.ui.table.setCellWidget(row, 7, self.status_chip(status))
-            else:
-                self.ui.table.setItem(row, 7, self.table_item(""))
+            self.ui.table.setItem(row, 7, self.table_item(server.get("trang_thai", ""), "center"))
             self.ui.table.setItem(row, 8, self.table_item(str(server.get("changed_ip", "")), "center"))
             self.ui.table.setItem(row, 9, self.table_item(server.get("note", "")))
         # Show row numbers starting from 1 for data rows
@@ -399,3 +339,87 @@ class TableWindow(QMainWindow):
             data.append(row_dict)
         with open(file_path, "w", encoding="utf-8") as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
+
+class StatusChipDelegate(QStyledItemDelegate):
+    def paint(self, painter: QPainter, option: QStyleOptionViewItem, index: QModelIndex):
+        status = index.data(Qt.ItemDataRole.DisplayRole)
+        
+        if not status:  # Handle None or empty
+            super().paint(painter, option, index)
+            return
+        
+        status_lower = status.lower()
+
+        status_styles = {
+            "running": ("#16a34a", "white"),
+            "paused": ("#eab308", "black"),
+            "stopped": ("#eab308", "black"),
+            "off": ("#dc2626", "white"),
+            "inactive": ("#dc2626", "white"),
+            "unknow": ("#6b7280", "white")
+        }
+
+        bg_color, text_color = status_styles.get(status_lower, status_styles["unknow"])
+
+        # Let table draw selection background first
+        super().paint(painter, option, index)
+
+        # Draw the chip
+        painter.save()
+        painter.setRenderHint(QPainter.Antialiasing) # Khử răng cưa
+
+        # Font setup
+        font = QFont(option.font)
+        font.setPointSize(10)
+        painter.setFont(font)
+        metrics = QFontMetrics(font)
+
+        # Text size + padding
+        text_width = metrics.horizontalAdvance(status)
+        text_height = metrics.height()
+        padding_x = 8
+        padding_y = 2
+        chip_width = text_width + padding_x * 2
+        chip_height = text_height + padding_y * 2
+
+        # Center chip in cell
+        cell_rect = option.rect
+        chip_rect = QRect(
+            cell_rect.x() + (cell_rect.width() - chip_width) // 2,
+            cell_rect.y() + (cell_rect.height() - chip_height) // 2,
+            chip_width,
+            chip_height
+        )
+
+        # Draw chip background
+        painter.setBrush(QColor(bg_color))
+        painter.setPen(Qt.PenStyle.NoPen)
+        painter.drawRoundedRect(chip_rect, 10, 10)
+
+        # Draw chip text
+        painter.setPen(QColor(text_color))
+        painter.drawText(chip_rect, Qt.AlignmentFlag.AlignCenter, status)
+
+        painter.restore()
+    '''
+    Double-click cell
+    ↓
+    createEditor()         ← make QLineEdit
+    ↓
+    setEditorData()        ← fill QLineEdit with current cell value
+    ↓  [user edits text]
+    setModelData()         ← save new text back to model
+    ↓
+    paint()                ← draw updated cell (with chip)
+    '''
+    def createEditor(self, parent, option, index):
+        editor = QLineEdit(parent)
+        editor.setAlignment(Qt.AlignmentFlag.AlignCenter)  # 👈 Center text while editing
+        return editor 
+
+    def setEditorData(self, editor, index):
+        value = index.data(Qt.ItemDataRole.DisplayRole) or ""
+        editor.setText(value)
+
+    def setModelData(self, editor, model, index):
+        model.setData(index, editor.text(), Qt.ItemDataRole.EditRole)
